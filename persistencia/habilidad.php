@@ -81,9 +81,23 @@ function modificar_habilidad($id,$codigo,$descripcion,$peso)
     return $error;
 }
 
-function insertar_habilidad($id,$nombre)
+function insertar_habilidad($codigo,$descripcion,$peso)
 {
-    # code...
+    $error=false;
+    $con = abrir_conexion();
+    $insert = "INSERT INTO habilidad (codigo,descripcion,peso)"
+    . " VALUES ("."'$codigo',"."'$descripcion',".$peso . ")";
+
+    if (!mysqli_query($con, $insert)) {
+        $mensaje=mysqli_error($con);
+        $mensaje = 'Mensaje de error: ['.$mensaje.']';
+        $error=true;
+    }else{
+        $mensaje = 'La habilidad fue registrada con exito.';
+    }
+     cerrar_conexion($con);
+     
+     return $error;
 }
 
 
