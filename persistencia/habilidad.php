@@ -60,6 +60,31 @@ function obtener_habilidad($id,&$habilidad,&$mensaje) {
     return $error;
 }
 
+function modificar_habilidad($id,$codigo,$descripcion,$peso)
+{
+    $error=false;
+    $con = abrir_conexion();
+    $updateSQL = "UPDATE habilidad SET codigo=".$codigo. ",descripcion=".$descripcion.",peso=".$peso;
+  
+    $result=mysqli_query($con, $updateSQL);
+    
+      if (!mysqli_query($con, $updateSQL)) {
+        $mensaje=mysqli_error($con);
+        $mensaje = 'Mensaje de error: ['.$mensaje.']';
+        $error=true;
+    }else{
+        $mensaje = 'La habilidad fue actualizada correctamente.';
+    }
+      
+    cerrar_conexion($con);
+    
+    return $error;
+}
+
+function insertar_habilidad($id,$nombre)
+{
+    # code...
+}
 
 
 ?>
