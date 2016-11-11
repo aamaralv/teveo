@@ -4,7 +4,7 @@ include_once("conexion.php");
 
 
 
-function listar_habilidades(&$habilidades, &$mensaje) {
+function obtener_habilidades(&$habilidades, &$mensaje) {
     $error=false;
     $con = abrir_conexion();
     $select = "SELECT * FROM habilidad;";
@@ -21,8 +21,9 @@ function listar_habilidades(&$habilidades, &$mensaje) {
         while ($row = mysqli_fetch_row($result)) {
 
             $datos['id'] = $row[0];
-            $datos['nombre'] = $row[1];
-            $datos['habilitado'] = $row[2];
+            $datos['codigo'] = $row[1];
+            $datos['descripcion'] = $row[2];
+            $datos['peso'] = $row[3];
             $habilidades[$indice] = $datos;
             $indice++;
         }
