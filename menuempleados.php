@@ -4,7 +4,7 @@ $_SESSION["mensajePasado"] = "";
 ?> 
 <html>
     <head>
-        <title>Menu gestión de usuarios</title>
+        <title>Menu gesti�n de usuarios</title>
         <style type="text/css">
             .auto-style1 {
                 text-align: center;
@@ -24,16 +24,16 @@ $_SESSION["mensajePasado"] = "";
                 <td style="width: 2%" nowrap="nowrap">
                     <br>
                     <hr>
-                    <a href="presentacion/listaempleados.php">Lista de empleados</a> 
+                    <a href="presentacion/listarusuarios.php">Lista de usuarios</a> 
                     <br>  
                     <br>
-                    <a href="presentacion/altaempleado.php">Alta de empleado</a>
+                    <a href="presentacion/altausuario.php">Alta de empleado</a>
                     <br>  
                     <br>
-                    <a href="">Modificacion de empleado</a>
+                    <a href="">Modificacion de usuario</a>
                     <br>  
                     <br>
-                    <a href="">Baja de empleado</a>
+                    <a href="">Baja de usuario</a>
                     <br>  
                     <br>
                 </td>

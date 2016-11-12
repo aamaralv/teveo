@@ -1,10 +1,5 @@
 <?php
 
-/*define("DB_HOST", "mysql13.000webhost.com");
-define("DB_USER", "a3042567_user01");
-define("DB_PASS", "user01");
-define("DB_NAME", "a3042567_bd");*/
-
 define("DB_HOST", "localhost");
 define("DB_USER", "root");
 define("DB_PASS", "admin");

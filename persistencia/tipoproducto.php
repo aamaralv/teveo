@@ -1,65 +1,57 @@
 <?php
 
 include_once("conexion.php");
+include_once("funcionesDB.php");
 
 
-
-function listar_productos(&$productos, &$mensaje) {
-    $error=false;
-    $con = abrir_conexion();
-    $select = "SELECT * FROM tipoproducto;";
-    $indice = 0;
-    $productos = array();
+function listar_tipos_de_productos($campos,$criterios,&$resultados, &$mensaje) {
+    $conexion = abrir_conexion();
     
-    $result=mysqli_query($con, $select);
-    
-    if (!$result) {
-        $mensaje=mysqli_error($con);
-        $mensaje = 'Mensaje de error: ['.$mensaje.']';
-        $error = true;
-    } else {
-        while ($row = mysqli_fetch_row($result)) {
-
-            $datos['id'] = $row[0];
-            $datos['nombre'] = $row[1];
-            $datos['habilitado'] = $row[2];
-            $productos[$indice] = $datos;
-            $indice++;
-        }
-
-        mysqli_free_result($result);
-    }
-    cerrar_conexion($con);
+    $error=select($conexion,TABLA_TIPOS_DE_PRODUCTO,$campos,$criterios,$$resultados,$mensaje);
+	
+    cerrar_conexion($conexion);
     
     return $error;
 }
 
-function obtener_producto($id,&$producto,&$mensaje) {
-    $error=false;
-    $con = abrir_conexion();
-    $select = "SELECT * FROM tipoproducto where id=".$id;
-  
-    $result=mysqli_query($con, $select);
+function obtener_tipo_de_producto($campos,$criterios,&$resultado, &$mensaje) {
+    $conexion = abrir_conexion();
     
-    if (!$result) {
-        $mensaje=mysqli_error($con);
-        $mensaje = 'Mensaje de error: ['.$mensaje.']';
-        $error = true;
-    } else {
-        while ($row = mysqli_fetch_row($result)) {
-
-            $producto['id'] = $row[0];
-            $producto['nombre'] = $row[1];
-            $producto['habilitado'] = $row[2];
-        }
-
-        mysqli_free_result($result);
-    }
-    cerrar_conexion($con);
+    $error=select($conexion,TABLA_TIPOS_DE_PRODUCTO,$campos,$criterios,$resultado,$mensaje);
+	
+    cerrar_conexion($conexion);
     
     return $error;
 }
 
+function insertar_tipo_de_producto($campos,$valores,&$mensaje) {
+    $conexion = abrir_conexion();
+    
+    $error=insert($conexion,TABLA_TIPOS_DE_PRODUCTO,$campos, $valores,$mensaje);
+	
+    cerrar_conexion($conexion);
+    
+    return $error;
+}
 
+function actualizar_tipo_de_producto($valores,$criterios,&$mensaje) {
+    $conexion = abrir_conexion();
+
+    $error=update($conexion,TABLA_TIPOS_DE_PRODUCTO,$valores,$criterios,$mensaje);
+	
+    cerrar_conexion($conexion);
+    
+    return $error;
+}
+
+function borrar_tipo_de_producto($criterios,&$mensaje) {
+    $conexion = abrir_conexion();
+
+    $error=delete($conexion,TABLA_TIPOS_DE_PRODUCTO,$criterios,$mensaje);
+	
+    cerrar_conexion($conexion);
+    
+    return $error;
+}
 
 ?>

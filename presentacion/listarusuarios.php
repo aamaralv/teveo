@@ -8,12 +8,9 @@
     //
     --> 
     <?php
-    include_once("../logica/empleado.php");
-
-    session_start();
-
+    include_once("../logica/usuario.php");
     $empleados;
-    if (obtener_empleados($empleados, $mensaje)) {
+    if (obtener_usuarios($empleados, $mensaje)) {
         echo $mensaje . "<br>";
     }
     ?>
@@ -40,7 +37,7 @@
             echo '<col style="width: 200px" />';
             echo "<tr>";
             echo '<th scope="col">CI</th>';
-            echo '<th scope="col">identificador</th>';
+            echo '<th scope="col">Usuario</th>';
             echo '<th scope="col">Nombre</th>';
             echo "</tr>";
             //Listo todos los empleados de la base en la tabla
@@ -48,7 +45,7 @@
             $cantElem = sizeof($empleados);
             for ($i = 0; $i < $cantElem; $i++) {
                 echo "<tr bgcolor=" . $color_fila . ">";
-                echo "<td>" . $empleados[$i]["ci"] . "</td><td>" . $empleados[$i]["identificador"] . "</td><td>" . $empleados[$i]["nombre"] . "</td>";
+                echo "<td>" . $empleados[$i]["ci"] . "</td><td>" . $empleados[$i]["usuario"] . "</td><td>" . $empleados[$i]["nombre"] . "</td>";
                 echo "</tr>";
                 if ($color_fila == '"#BBFFFF"') {
                     $color_fila = '"#FFFFFF"';
@@ -56,7 +53,6 @@
                     $color_fila = '"#BBFFFF"';
                 }
             }
-
             echo "</table>";
             ?>
             <br>  

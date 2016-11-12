@@ -1,61 +1,55 @@
 <?php
 
 include_once("conexion.php");
+include_once("funcionesDB.php");
 
 
-
-function listar_tareas(&$tareas, &$mensaje) {
-    $error=false;
-    $con = abrir_conexion();
-    $select = "SELECT * FROM tipotarea ;";
-    $indice = 0;
-    $tareas = array();
+function listar_tipos_de_tarea($campos,$criterios,&$roles, &$mensaje) {
+    $conexion = abrir_conexion();
     
-    $result=mysqli_query($con, $select);
-    
-    if (!$result) {
-        $mensaje=mysqli_error($con);
-        $mensaje = 'Mensaje de error: ['.$mensaje.']';
-        $error = true;
-    } else {
-        while ($row = mysqli_fetch_row($result)) {
-
-            $datos['id'] = $row[0];
-            $datos['nombre'] = $row[1];
-            $datos['habilitado'] = $row[2];
-            $tareas[$indice] = $datos;
-            $indice++;
-        }
-
-        mysqli_free_result($result);
-    }
-    cerrar_conexion($con);
+    $error=select($conexion,TABLA_TIPOS_DE_TAREA,$campos,$criterios,$roles,$mensaje);
+	
+    cerrar_conexion($conexion);
     
     return $error;
 }
 
-function obtener_tarea($id,&$tarea,&$mensaje) {
-    $error=false;
-    $con = abrir_conexion();
-    $select = "SELECT * FROM tipotarea where id=".$id;
-  
-    $result=mysqli_query($con, $select);
+function obtener_tipo_de_tarea($campos,$criterios,&$resultado, &$mensaje) {
+    $conexion = abrir_conexion();
     
-    if (!$result) {
-        $mensaje=mysqli_error($con);
-        $mensaje = 'Mensaje de error: ['.$mensaje.']';
-        $error = true;
-    } else {
-        while ($row = mysqli_fetch_row($result)) {
+    $error=select($conexion,TABLA_TIPOS_DE_TAREA,$campos,$criterios,$resultado,$mensaje);
+	
+    cerrar_conexion($conexion);
+    
+    return $error;
+}
 
-            $tarea['id'] = $row[0];
-            $tarea['nombre'] = $row[1];
-            $tarea['habilitado'] = $row[2];
-        }
+function insertar_tipo_de_tarea($campos,$valores,&$mensaje) {
+    $conexion = abrir_conexion();
+    
+    $error=insert($conexion,TABLA_TIPOS_DE_TAREA,$campos, $valores,$mensaje);
+	
+    cerrar_conexion($conexion);
+    
+    return $error;
+}
 
-        mysqli_free_result($result);
-    }
-    cerrar_conexion($con);
+function actualizar_tipo_de_tarea($valores,$criterios,&$mensaje) {
+    $conexion = abrir_conexion();
+
+    $error=update($conexion,TABLA_TIPOS_DE_TAREA,$valores,$criterios,$mensaje);
+	
+    cerrar_conexion($conexion);
+    
+    return $error;
+}
+
+function borrar_tipo_de_tarea($criterios,&$mensaje) {
+    $conexion = abrir_conexion();
+
+    $error=delete($conexion,TABLA_TIPOS_DE_TAREA,$criterios,$mensaje);
+	
+    cerrar_conexion($conexion);
     
     return $error;
 }

@@ -1,7 +1,7 @@
 <?php
 
 //require "../persistencia/emleado.php"
-include_once("../persistencia/empleado.php");
+include_once("../persistencia/usuario.php");
 
 
 // conexión al servidor de MySQL
@@ -15,7 +15,7 @@ include_once("../persistencia/empleado.php");
 //echo $_POST["usuario"];
 
 $usuario = htmlspecialchars($_POST["usuario"]);
-$contrasena = htmlspecialchars($_POST["contrasena"]);
+$password = htmlspecialchars($_POST["contrasena"]);
 
 //armado de los criterios de la consulta
 //$criterios = " usuario = '" . $usuario . "' AND contrasena = '" . $contrasena . "'";
@@ -25,7 +25,11 @@ $contrasena = htmlspecialchars($_POST["contrasena"]);
 //$cantreg = contarEnBD($conexion, "usuarios", $criterios);
 
 $empleado;
-if (login_empleado($usuario,$contrasena, $empleado, $mensaje)) {
+$campos=array("ci","usuario","password","nombre","apellido","telefono","rolid","identificadorsupervisor","identificadorequipo","habilitado");
+$usuario="aamaral";
+$password="admin";
+$criterios=array("usuario='$usuario'","password='$password'");
+if (login_usuario($campos,$criterios, $empleado, $mensaje)) {
     echo $mensaje . "<br>";
 } else {
     if (!is_null($empleado))

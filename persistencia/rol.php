@@ -1,61 +1,55 @@
 <?php
 
 include_once("conexion.php");
+include_once("funcionesDB.php");
 
 
-
-function listar_roles(&$roles, &$mensaje) {
-    $error=false;
-    $con = abrir_conexion();
-    $select = "SELECT * FROM rol;";
-    $indice = 0;
-    $roles = array();
+function listar_roles($campos,$criterios,&$roles, &$mensaje) {
+    $conexion = abrir_conexion();
     
-    $result=mysqli_query($con, $select);
-    
-    if (!$result) {
-        $mensaje=mysqli_error($con);
-        $mensaje = 'Mensaje de error: ['.$mensaje.']';
-        $error = true;
-    } else {
-        while ($row = mysqli_fetch_row($result)) {
-
-            $datos['id'] = $row[0];
-            $datos['nombre'] = $row[1];
-            $datos['habilitado'] = $row[2];
-            $roles[$indice] = $datos;
-            $indice++;
-        }
-
-        mysqli_free_result($result);
-    }
-    cerrar_conexion($con);
+    $error=select($conexion,TABLA_TIPO_DE_ROL,$campos,$criterios,$roles,$mensaje);
+	
+    cerrar_conexion($conexion);
     
     return $error;
 }
 
-function obtener_rol($id,&$rol,&$mensaje) {
-    $error=false;
-    $con = abrir_conexion();
-    $select = "SELECT * FROM rol where id=".$id;
-  
-    $result=mysqli_query($con, $select);
+function obtener_rol($campos,$criterios,&$resultado, &$mensaje) {
+    $conexion = abrir_conexion();
     
-    if (!$result) {
-        $mensaje=mysqli_error($con);
-        $mensaje = 'Mensaje de error: ['.$mensaje.']';
-        $error = true;
-    } else {
-        while ($row = mysqli_fetch_row($result)) {
+    $error=select($conexion,TABLA_TIPO_DE_ROL,$campos,$criterios,$resultado,$mensaje);
+	
+    cerrar_conexion($conexion);
+    
+    return $error;
+}
 
-            $rol['id'] = $row[0];
-            $rol['nombre'] = $row[1];
-            $rol['habilitado'] = $row[2];
-        }
+function insertar_rol($campos,$valores,&$mensaje) {
+    $conexion = abrir_conexion();
+    
+    $error=insert($conexion,TABLA_TIPO_DE_ROL,$campos, $valores,$mensaje);
+	
+    cerrar_conexion($conexion);
+    
+    return $error;
+}
 
-        mysqli_free_result($result);
-    }
-    cerrar_conexion($con);
+function actualizar_rol($valores,$criterios,&$mensaje) {
+    $conexion = abrir_conexion();
+
+    $error=update($conexion,TABLA_TIPO_DE_ROL,$valores,$criterios,$mensaje);
+	
+    cerrar_conexion($conexion);
+    
+    return $error;
+}
+
+function borrar_rol($criterios,&$mensaje) {
+    $conexion = abrir_conexion();
+
+    $error=delete($conexion,TABLA_TIPO_DE_ROL,$criterios,$mensaje);
+	
+    cerrar_conexion($conexion);
     
     return $error;
 }

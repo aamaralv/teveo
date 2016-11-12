@@ -1,7 +1,7 @@
 <html> 
 
 <!--
-// UDE - Ingenierï¿½a en Informï¿½tica - Desarrollo de Aplicaciones PHP - Curso 2016
+// UDE - Ingeniería en Informática - Desarrollo de Aplicaciones PHP - Curso 2016
 // Integrantes : Alexander Amaral
 //               Gaston Rodriguez
 //               Victorio Cecot
@@ -9,7 +9,7 @@
 --> 
 
   <head> 
-    <title>AutenticaciÃ³n</title> 
+    <title>Autenticación</title> 
     <style type="text/css">
       .auto-style1 {
         text-align: center;
@@ -18,7 +18,7 @@
   </head> 
   <body onLoad="document.formulario.usuario.focus()"> 
     <h1><br><br></h1>
-    <h1 class="auto-style1">AutenticaciÃ³n</h1> 
+    <h1 class="auto-style1">Autenticación</h1> 
     <form name="formulario" action="seguridad/control.php" method="POST"> 
     <table align="center" width="225" cellspacing="2" cellpadding="2" border="0"> 
       <tr> 
@@ -41,7 +41,7 @@
 				{
 				  if ($_GET["errorusuario"]=="co")
 				  {
-					  echo "<b>Omitio la contraseï¿½a</b>";
+					  echo "<b>Omitio la contraseña</b>";
 				  }
 				}
 			  }
@@ -55,7 +55,7 @@
         <td><input type="Text" name="usuario" size="12" maxlength="50" autocomplete="off"></td> 
       </tr> 
       <tr> 
-        <td align="right">Contraseï¿½a:</td> 
+        <td align="right">Contraseña:</td> 
         <td><input type="password" name="contrasena" size="12" maxlength="50"></td> 
       </tr> 
       <tr> 

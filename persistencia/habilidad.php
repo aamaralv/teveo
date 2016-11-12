@@ -1,90 +1,57 @@
 <?php
 
 include_once("conexion.php");
+include_once("funcionesDB.php");
 
 
-
-function listar_habilidades(&$habilidades, &$mensaje) {
-    $error=false;
-    $con = abrir_conexion();
-    $select = "SELECT * FROM habilidad;";
-    $indice = 0;
-    $habilidades = array();
+function listar_habilidades($campos,$criterios,&$resultados, &$mensaje) {
+    $conexion = abrir_conexion();
     
-    $result=mysqli_query($con, $select);
-    
-    if (!$result) {
-        $mensaje=mysqli_error($con);
-        $mensaje = 'Mensaje de error: ['.$mensaje.']';
-        $error = true;
-    } else {
-        while ($row = mysqli_fetch_row($result)) {
-
-            $datos['id'] = $row[0];
-            $datos['nombre'] = $row[1];
-            $datos['habilitado'] = $row[2];
-            $habilidades[$indice] = $datos;
-            $indice++;
-        }
-
-        mysqli_free_result($result);
-    }
-    cerrar_conexion($con);
+    $error=select($conexion,TABLA_HABILIDAD,$campos,$criterios,$$resultados,$mensaje);
+	
+    cerrar_conexion($conexion);
     
     return $error;
 }
 
-function obtener_habilidad($id,&$habilidad,&$mensaje) {
-    $error=false;
-    $con = abrir_conexion();
-    $select = "SELECT * FROM habilidad where id=".$id;
-  
-    $result=mysqli_query($con, $select);
+function obtener_habilidad($campos,$criterios,&$resultado, &$mensaje) {
+    $conexion = abrir_conexion();
     
-    if (!$result) {
-        $mensaje=mysqli_error($con);
-        $mensaje = 'Mensaje de error: ['.$mensaje.']';
-        $error = true;
-    } else {
-        while ($row = mysqli_fetch_row($result)) {
-
-            $habilidad['id'] = $row[0];
-            $habilidad['nombre'] = $row[1];
-            $habilidad['habilitado'] = $row[2];
-        }
-
-        mysqli_free_result($result);
-    }
-    cerrar_conexion($con);
+    $error=select($conexion,TABLA_HABILIDAD,$campos,$criterios,$resultado,$mensaje);
+	
+    cerrar_conexion($conexion);
     
     return $error;
 }
 
-function modificar_habilidad($id,$codigo,$descripcion,$peso)
-{
-    $error=false;
-    $con = abrir_conexion();
-    $updateSQL = "UPDATE habilidad SET codigo=".$codigo. ",descripcion=".$descripcion.",peso=".$peso;
-  
-    $result=mysqli_query($con, $updateSQL);
+function insertar_habilidad($campos,$valores,&$mensaje) {
+    $conexion = abrir_conexion();
     
-      if (!mysqli_query($con, $updateSQL)) {
-        $mensaje=mysqli_error($con);
-        $mensaje = 'Mensaje de error: ['.$mensaje.']';
-        $error=true;
-    }else{
-        $mensaje = 'La habilidad fue actualizada correctamente.';
-    }
-      
-    cerrar_conexion($con);
+    $error=insert($conexion,TABLA_HABILIDAD,$campos, $valores,$mensaje);
+	
+    cerrar_conexion($conexion);
     
     return $error;
 }
 
-function insertar_habilidad($id,$nombre)
-{
-    # code...
+function actualizar_habilidad($valores,$criterios,&$mensaje) {
+    $conexion = abrir_conexion();
+
+    $error=update($conexion,TABLA_HABILIDAD,$valores,$criterios,$mensaje);
+	
+    cerrar_conexion($conexion);
+    
+    return $error;
 }
 
+function borrar_habilidad($criterios,&$mensaje) {
+    $conexion = abrir_conexion();
+
+    $error=delete($conexion,TABLA_HABILIDAD,$criterios,$mensaje);
+	
+    cerrar_conexion($conexion);
+    
+    return $error;
+}
 
 ?>
