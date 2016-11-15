@@ -6,17 +6,21 @@ $_SESSION["mensajePasado"] = "";
 /*echo "<pre>";
 print_r($_SESSION);
 echo "</pre>";*/
+
+/*echo "<pre>";
+print_r($_SESSION);
+echo "</pre>";*/
 ?> 
 <html> 
   <head> 
-    <title>Menú</title>
+    <title>Menï¿½</title>
   </head> 
   <body> 
   <h1 style="text-align:center;"><br>TEVEO</h1>
   <h1><br></h1>
     <table align="center" width="200" cellspacing="2" cellpadding="2" border="0">
       <tr> 
-        <td align="left"><h1>Menú Inicial</h1></td> 
+        <td align="left"><h1>Menï¿½ Inicial</h1></td> 
       </tr>
 	  <tr> 
         <td><hr /></td> 
@@ -25,7 +29,7 @@ echo "</pre>";*/
 	  if ($_SESSION["rol"] === '1')
 	  {
 		echo "<tr>"; 
-        echo '<td align="left"><a href="menuempleados.php">Menú gestión de empleados</a></td>'; 
+        echo '<td align="left"><a href="menuempleados.php">Menï¿½ gestiï¿½n de empleados</a></td>'; 
 		echo "</tr>";
 	  }
 	  ?>
