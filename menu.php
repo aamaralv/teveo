@@ -20,7 +20,7 @@ echo "</pre>";*/
   <h1><br></h1>
     <table align="center" width="200" cellspacing="2" cellpadding="2" border="0">
       <tr> 
-        <td align="left"><h1>Men� Inicial</h1></td> 
+        <td align="left"><h1>Menu Inicial</h1></td> 
       </tr>
 	  <tr> 
         <td><hr /></td> 
@@ -29,7 +29,7 @@ echo "</pre>";*/
 	  if ($_SESSION["rol"] === '1')
 	  {
 		echo "<tr>"; 
-        echo '<td align="left"><a href="menuempleados.php">Men� gesti�n de empleados</a></td>'; 
+        echo '<td align="left"><a href="menuempleados.php">Menú gestión de empleados</a></td>'; 
 		echo "</tr>";
 	  }
 	  ?>

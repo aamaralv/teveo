@@ -7,7 +7,7 @@ include_once("funcionesDB.php");
 function listar_habilidades($campos,$criterios,&$resultados, &$mensaje) {
     $conexion = abrir_conexion();
     
-    $error=select($conexion,TABLA_HABILIDAD,$campos,$criterios,$$resultados,$mensaje);
+    $error=select($conexion,TABLA_HABILIDAD,$campos,$criterios,$resultados,$mensaje);
 	
     cerrar_conexion($conexion);
     

@@ -21,7 +21,7 @@ function select($conexion, $tabla, $campos, $criterios, &$tabla_resultado, &$men
         $selectwhere = implode(" and ", $criterios);
         $consulta.=" WHERE " . $selectwhere;
     }
-
+    
     $resultado = mysqli_query($conexion, $consulta);
 
     if (!$resultado) {
@@ -37,6 +37,7 @@ function select($conexion, $tabla, $campos, $criterios, &$tabla_resultado, &$men
         if ($cantreg == 1) {
             $tabla_resultado = $tabla_resultado[0];
         }
+        
     }
     return $error;
 }
@@ -63,7 +64,7 @@ function update($conexion, $tabla, $valores,$criterios,&$mensaje) {
     $updatevalores = implode(",", $valores);
     $updatewhere = implode(" and ", $criterios);
     $update = "UPDATE " . $tabla ." SET " . $updatevalores . " WHERE " . $updatewhere;
-  
+    echo $update;
     if (!mysqli_query($conexion, $update)) {
         $mensaje = mysqli_error($conexion);
         $mensaje = 'Mensaje de error: [' . $mensaje . ']';
