@@ -3,6 +3,7 @@
 define("TABLA_USUARIO", "usuario");
 define("TABLA_TIPO_DE_ROL", "tipo_de_rol");
 define("TABLA_EMPLEADO", "empleado");
+define("TABLA_EQUIPO", "equipo");
 define("TABLA_HABILIDAD", "habilidad");
 define("TABLA_ORDEN_DE_TRABAJO", "orden_de_trabajo");
 define("TABLA_TIPOS_DE_PRODUCTO", "tipso_de_producto");
