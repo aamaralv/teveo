@@ -10,6 +10,7 @@ define("TABLA_TIPOS_DE_PRODUCTO", "tipso_de_producto");
 define("TABLA_TIPOS_DE_TAREA", "tipos_de_tarea");
 define("TABLA_AUDITORIA_CUOTA", "auditoria_cuota");
 define("TABLA_CUOTA_EXCEPCIONAL", "cuota_excepcional");
+define("TABLA_FERIADO", "feriados");
 
 function select($conexion, $tabla, $campos, $criterios, &$tabla_resultado, &$mensaje_error) {
 
