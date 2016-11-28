@@ -7,7 +7,7 @@ include_once("funcionesDB.php");
 function listar_usuarios($campos,$criterios,&$usuarios, &$mensaje) {
     $conexion = abrir_conexion();
     
-    $error=select($conexion,TABLA_USUARIO,$campos,$criterios,$usuarios,$mensaje);
+    $error=select($conexion,TABLA_EMPLEADO,$campos,$criterios,$usuarios,$mensaje);
 	
     cerrar_conexion($conexion);
     
@@ -17,7 +17,7 @@ function listar_usuarios($campos,$criterios,&$usuarios, &$mensaje) {
 function obtener_usuario($campos,$criterios,&$usuario, &$mensaje) {
     $conexion = abrir_conexion();
     
-    $error=select($conexion,TABLA_USUARIO,$campos,$criterios,$usuario,$mensaje);
+    $error=select($conexion,TABLA_EMPLEADO,$campos,$criterios,$usuario,$mensaje);
 	
     cerrar_conexion($conexion);
     
@@ -28,7 +28,7 @@ function obtener_usuario($campos,$criterios,&$usuario, &$mensaje) {
 function login_usuario($campos,$criterios,&$usuario, &$mensaje) {
     $conexion = abrir_conexion();
     
-    $error=select($conexion,TABLA_USUARIO,$campos,$criterios,$usuario,$mensaje);
+    $error=select($conexion,TABLA_EMPLEADO,$campos,$criterios,$usuario,$mensaje);
 	
     cerrar_conexion($conexion);
     
@@ -38,7 +38,7 @@ function login_usuario($campos,$criterios,&$usuario, &$mensaje) {
 function insertar_usuario($campos,$valores,&$mensaje) {
     $conexion = abrir_conexion();
     
-    $error=insert($conexion,TABLA_USUARIO,$campos, $valores,$mensaje);
+    $error=insert($conexion,TABLA_EMPLEADO,$campos, $valores,$mensaje);
 	
     cerrar_conexion($conexion);
     
@@ -48,7 +48,7 @@ function insertar_usuario($campos,$valores,&$mensaje) {
 function actualizar_usuario($valores,$criterios,&$mensaje) {
     $conexion = abrir_conexion();
 
-    $error=update($conexion,TABLA_USUARIO,$valores,$criterios,$mensaje);
+    $error=update($conexion,TABLA_EMPLEADO,$valores,$criterios,$mensaje);
 	
     cerrar_conexion($conexion);
     
@@ -58,7 +58,7 @@ function actualizar_usuario($valores,$criterios,&$mensaje) {
 function borrar_usuario($criterios,&$mensaje) {
     $conexion = abrir_conexion();
 
-    $error=delete($conexion,TABLA_USUARIO,$criterios,$mensaje);
+    $error=delete($conexion,TABLA_EMPLEADO,$criterios,$mensaje);
 	
     cerrar_conexion($conexion);
     

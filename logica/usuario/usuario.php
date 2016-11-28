@@ -1,34 +1,81 @@
 <?php
-include_once("../persistencia/usuario.php");
-session_start();
-if (isset($_POST['Ingresar_Empleado'])) {
+include_once("../../persistencia/usuario.php");
+
+if (isset($_POST['Crear_Usuario'])) {
+
     $CI = $_REQUEST["CI"];
-    $nombre = $_REQUEST["Nombre"];
-    $apellido = $_REQUEST["Apellido"];
-    $telefono = $_REQUEST["Telefono"];
-    $identificadorequipo = $_REQUEST["Equipo"];
-    $rolid = $_REQUEST["Rol"];
-    $usuario = $_REQUEST["Login"];
-    $password = $_REQUEST["PASS"];
-    $supervisor = $_REQUEST["Supervisor"];
-    $habilitado = $_REQUEST["Habilidado"];
-//echo "CI ",$CI ,"identificador ",$identificador ,"nombre ",$nombre,"telefono ",$telefono,"equipo ",$equipo,"rol ",$rol," login ",$login," pass ",$contraseña," habi ",$habilidado ."<br>";
-//echo "HABILITADO=".$habilitado."<br>";
+    $identificador = $_REQUEST["identificador"];
+    $nombre = $_REQUEST["nombre"];
+    $password = $_REQUEST["password"];
+    $telefono = $_REQUEST["telefono"];
+    $rolid = $_REQUEST["rolid"];
+    $login = $_REQUEST["login"];
+    $identificadorequipo = $_REQUEST["identificadorequipo"];
+    $habilitado = $_REQUEST["habilitado"];
+
     $mensaje = "";
-    $campos=array("ci","usuario","password","nombre","apellido","telefono","rolid","identificadorsupervisor","identificadorequipo","habilitado");
-    $valores=array("'$CI'","'$usuario'","'$password'","'$nombre'","'$apellido'","'$telefono'",$rolid,"'$supervisor'","'$identificadorequipo'",$habilitado);
-    if (insertar_usuario($campos,$valores, $mensaje)) {
-        $_SESSION['mensaje'] = $mensaje;
-        $_SESSION['altacliente'] = false;
-    } else {
-        $_SESSION['mensaje'] = "El usuario fue registrado con exito!<br>";
-        $_SESSION['altacliente'] = true;
+ 
+    $campos=array("ci","identificador","nombre","password","telefono","rolid","login","identificadorequipo","habilitado");
+    $valores=array($CI,"'$identificador'","'$nombre'","'$password'","'$telefono'",$rolid,"'$login'","'$identificadorequipo'",$habilitado);
+    $error=insertar_usuario($campos,$valores, $mensaje);
+       
+  
+    if($error){
+        echo$mensaje,"<br>";
+        die;
+    }   
+    header("Location: ../../presentacion/usuario/listarusuarios.php");
+
+    
+}elseif (isset($_POST['Modificar_Usuario'])) {
+    
+    $CI = $_REQUEST["CI"];
+    $identificador = $_REQUEST["identificador"];
+    $nombre = $_REQUEST["nombre"];
+    $password = $_REQUEST["password"];
+    $telefono = $_REQUEST["telefono"];
+    $rolid = $_REQUEST["rolid"];
+    $login = $_REQUEST["login"];
+    $identificadorequipo = $_REQUEST["identificadorequipo"];
+    $habilitado = $_REQUEST["habilitado"];
+
+    $mensaje = "";
+
+    $valores=array(
+     "nombre='".$nombre."'",
+     "telefono='".$telefono."'",
+     "identificadorequipo='".$identificadorequipo."'",
+     "rolid=".$rolid,
+     "password='".$password."'",
+     "login='".$login."'",
+     "habilitado=".$habilitado);	
+    $criterios=array("ci=".$CI,"identificador='".$identificador."'");
+
+    
+    
+    $error=actualizar_usuario($valores,$criterios,$mensaje);
+    if($error){
+        echo$mensaje,"<br>";
+        die;
     }
-    header('Location: ../presentacion/altausuario.php');
+   
+    header("Location: ../../presentacion/usuario/listarusuarios.php");
+       
+    
 }
 function obtener_usuarios(&$usuarios, &$mensaje) {
-	$campos=array("ci","usuario","password","nombre","apellido","telefono","rolid","identificadorsupervisor","identificadorequipo","habilitado");
+	$campos=array("ci","identificador","password","nombre","telefono","rolid","identificadorequipo","habilitado","login");
 	$criterios=array();
-	listar_usuarios($campos,$criterios,$usuarios,$mensaje);
+	$error=listar_usuarios($campos,$criterios,$usuarios,$mensaje);
+        return $error;
 }
+
+function borrar_usuario_logica($ci,$identificador,$habilitado, &$mensaje) {
+    $valores=array("habilitado=".$habilitado);
+    $criterios = array("ci=".$ci,"identificador='".$identificador."'");
+    $error=actualizar_usuario($valores,$criterios,$mensaje);
+    return $error; 
+}
+    
+
 ?>
