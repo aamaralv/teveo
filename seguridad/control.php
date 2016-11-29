@@ -4,14 +4,14 @@
 include_once("../persistencia/usuario.php");
 
 
-// conexión al servidor de MySQL
+// conexiï¿½n al servidor de MySQL
 //$conexion = conectarBD($bdhost, $bduser, $bdpass);
 
-// conexión con la base de datos
+// conexiï¿½n con la base de datos
 //establecerBD($conexion, $bdbase);
 
 
-//vemos si el usuario y contraseña es válido, si existe esa conbinación usuario/contraseña
+//vemos si el usuario y contraseï¿½a es vï¿½lido, si existe esa conbinaciï¿½n usuario/contraseï¿½a
 //echo $_POST["usuario"];
 
 $usuario = htmlspecialchars($_POST["usuario"]);
@@ -20,27 +20,28 @@ $password = htmlspecialchars($_POST["contrasena"]);
 //armado de los criterios de la consulta
 //$criterios = " usuario = '" . $usuario . "' AND contrasena = '" . $contrasena . "'";
 
-//ejecución de la consulta para determinar si existe la combinación usuario/password
+//ejecuciï¿½n de la consulta para determinar si existe la combinaciï¿½n usuario/password
 //se obtiene la cantidad de registros a recuperar de la base (0 o 1)
 //$cantreg = contarEnBD($conexion, "usuarios", $criterios);
 
 $empleado;
-$campos=array("ci","usuario","password","nombre","apellido","telefono","rolid","identificadorsupervisor","identificadorequipo","habilitado");
-$usuario="aamaral";
-$password="admin";
-$criterios=array("usuario='$usuario'","password='$password'");
+$campos=array("ci","identificador","nombre","telefono","identificadorequipo","rolid","password","login","habilitado");
+
+//$usuario="aamaral";
+//$password="admin";
+$criterios=array("login='$usuario'","password='$password'");
 if (login_usuario($campos,$criterios, $empleado, $mensaje)) {
     echo $mensaje . "<br>";
 } else {
     if (!is_null($empleado))
 {
-    //usuario y contraseña válidos
-    //se define una sesión y guardan los datos
+    //usuario y contraseï¿½a vï¿½lidos
+    //se define una sesiï¿½n y guardan los datos
     session_name("loginUsuario");
     session_start();
     $_SESSION["usuario"] = $_POST["usuario"];
 
-    // obtener los valores del registro leído en la bd para determinar el grupo del usuario
+    // obtener los valores del registro leï¿½do en la bd para determinar el grupo del usuario
     //$campos = "grupo, nombre, apellido";
     //$tabla = consultarEnBD($conexion, "usuarios", $campos, $criterios);
     $_SESSION["rol"] = $empleado['rolid'];
@@ -51,7 +52,7 @@ if (login_usuario($campos,$criterios, $empleado, $mensaje)) {
     $_SESSION["paginaAnterior"] = substr($_SERVER['SCRIPT_NAME'],strrpos($_SERVER['SCRIPT_NAME'],'/')+1);
     $_SESSION["mensajePasado"] = "";
 
-    // se establece acceder al menú general de la aplicación
+    // se establece acceder al menï¿½ general de la aplicaciï¿½n
     $salto = "Location: ../menu.php";
 	
 }
@@ -66,7 +67,7 @@ else
 	{
 		if ($_POST["contrasena"] == "")
 		{
-			//si no escribio la contraseña, se manda otra vez a la portada
+			//si no escribio la contraseï¿½a, se manda otra vez a la portada
 			$salto = "Location: ../index.php?errorusuario=co";
 		}
 		else
@@ -80,9 +81,9 @@ else
 }
 
 
-// cerra la conexión
+// cerra la conexiï¿½n
 //desconectarBD($conexion);
-
+print $salto;
 // saltar a la pagina determinada en este script
 header($salto);
 

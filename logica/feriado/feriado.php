@@ -2,20 +2,22 @@
 
 include_once("../../persistencia/feriado.php");
 
-function obtener_feriados(&$equipos, &$mensaje) {
+function obtener_feriados(&$feriados, &$mensaje) {
 
-    $campos = array("fecha",
+    $campos = array(
+        "id",
+        "fecha",
         "descripcion"
         );
     $criterios = array();
-    $error=listar_feriados($campos, $criterios, $equipos, $mensaje);
+    $error=listar_feriados($campos, $criterios, $feriados, $mensaje);
     return $error; 
 }
 
 
-function borrar_feriado($id, &$mensaje) {
+function borrar_feriado_logica($id, &$mensaje) {
     $criterios = array("id='".$id."'");
-    $error=borrar_equipo($criterios, $mensaje);
+    $error=borrar_feriado($criterios, $mensaje);
     return $error; 
 }
 
@@ -30,7 +32,7 @@ if (isset($_POST['Modificar_Feriado'])) {
 
     $valores=array(
      "descripcion='".$descripcion."'",
-     "fecha=".$fecha);	
+     "fecha='".$fecha."'",);	
     $criterios=array("id='".$id."'");
 
     
