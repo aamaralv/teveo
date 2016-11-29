@@ -46,22 +46,23 @@ if (isset($_POST['Modificar_Feriado'])) {
     header("Location: ../../presentacion/feriado/listarFeriados.php");
 }elseif (isset($_POST['Crear_Feriado'])) {
     
-    $fecha=$_POST["fecha"];
+
+    $fecha= date('Y-m-d',strtotime($_POST["fecha"]));
     $descripcion=$_POST["descripcion"];
     $mensaje = "";
  
-     $campos=array("fecha",
-     "descripcion"); 
+     $campos=array("fecha","descripcion"); 
    
-   
-    $valores=array("'$fecha'",
-     "'$descripcion'");	
-    
+    print_r( $campos);
+
+    $valores=array("'". $fecha ."'","'$descripcion'");	
+     print_r( $valores);
+
     $error= insertar_feriado($campos,$valores,$mensaje);
     if($error){
         echo $mensaje,"<br>";
         die;
     }
-    header("Location: ../../presentacion/feriado/listarFeriado.php");   
+    header("Location: ../../presentacion/feriado/listarFeriados.php");   
 }
 ?>	

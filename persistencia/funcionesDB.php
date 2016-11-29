@@ -47,7 +47,7 @@ function insert($conexion, $tabla, $campos, $valores,&$mensaje) {
     $insertcampos = implode(",", $campos);
     $insertvalores = implode(",", $valores);
     $insert = "INSERT INTO " . $tabla . "(" . $insertcampos . ") VALUES (" . $insertvalores . ")";
-  
+  print $insert;
     if (!mysqli_query($conexion, $insert)) {
         $mensaje = mysqli_error($conexion);
         $mensaje = 'Mensaje de error: [' . $mensaje . ']';
