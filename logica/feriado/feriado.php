@@ -53,10 +53,10 @@ if (isset($_POST['Modificar_Feriado'])) {
  
      $campos=array("fecha","descripcion"); 
    
-    print_r( $campos);
+
 
     $valores=array("'". $fecha ."'","'$descripcion'");	
-     print_r( $valores);
+
 
     $error= insertar_feriado($campos,$valores,$mensaje);
     if($error){
