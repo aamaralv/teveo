@@ -58,10 +58,7 @@
                 "<td>" . $cuotas[$i]["usuario_cambio"] . "</td>" .
                 "<td>" . $cuotas[$i]["fecha_aplicacion"] . "</td>" .
                 "<td>" . $cuotas[$i]["cuota"] . "</td>" .
-                "<td>" ."<a href='bajaCuota.php?id=".$cuotas[$i]["id"]."'</a>"."Borrar"."</td>".        
-                "<td>" ."<a href='editarFeriado.php?id=".$cuotas[$i]["id"].
-                "&fecha=".$cuotas[$i]["equipo"].
-                "&descripcion=".$cuotas[$i]["fecha_cambio"]."'"."</a>Editar"."</td></tr>";
+                "<td>" ."<a href='bajaCuota.php?id=".$cuotas[$i]["id"]."'</a>"."Borrar"."</td>"."</tr>";
 
                 if ($color_fila == '"#BBFFFF"') {
                     $color_fila = '"#FFFFFF"';
