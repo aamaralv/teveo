@@ -1,38 +1,36 @@
 <?php
 include_once ("seguridad/seguridad.php");
+$_SESSION["paginaAnterior"] = substr($_SERVER['SCRIPT_NAME'],strrpos($_SERVER['SCRIPT_NAME'],'/')+1);
 $_SESSION["mensajePasado"] = "";
 ?> 
 <html>
     <head>
         <title>Menu area comercial</title>
-        <style type="text/css">
-            .auto-style1 {
-                text-align: center;
-            }
-            .auto-style2 {
-                text-align: right;
-            }
-        </style>
     </head>
-    <body>
+    <body align="center">
         <h1 class="auto-style1">&nbsp;</h1>
         <h1 class="auto-style1">Menu area Comercial</h1>
         <h2 class="auto-style1">Elija su opcion</h2>
-        <table style="width: 100%">
+            <table align="center" width="200" cellspacing="2" cellpadding="2" border="0">
             <tr>
-                <td style="width: 49%" rowspan="2" class="auto-style2"></td>
-                <td style="width: 2%" nowrap="nowrap">
-                    <br>
-                    <hr>
-                    <a href="">Crear OT instalacion</a> 
+                <td align="left">
+				    <hr>
+                    <br>					
+                    <a href="comercial/controladorGeneraOTComercial.php">Crear OT instalacion</a> 
                     <br>  
-                    <br>
-                    
                 </td>
-                <td style="width: 49%" rowspan="2">&nbsp;</td>
             </tr>
             <tr>
-                <td style="width: 2%" nowrap="nowrap" class="auto-style1">
+                <td align="left">
+                    <br>
+                    <a href="vistaorden/controladorListarOrdenes.php">Consultar Ordenes de trabajo</a> 
+                    <br>  
+                    <br>
+                 
+                </td>
+            </tr>
+            <tr>
+                <td align="center" nowrap="nowrap">
                     <hr>
                     <a href="menu.php">Volver</a>
                     <br><a href="salir.php">Salir</a>

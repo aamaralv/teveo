@@ -1,0 +1,1 @@
+SELECT  *  FROM orden_de_trabajo WHERE (equipo = 'ECANPAN009' AND fechaprevista = '2016-12-01' )

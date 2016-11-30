@@ -63,15 +63,15 @@ $app->post('/ordendetrabajo', function () use ($app) {
 
         $campos = array(
             "tipoorden",
-            "tipotareaid",
+            "tipotarea",
             "sistemaemisor",
-            "tipoproductoid",
+            "tipoproducto",
             "fechahoracreacion",
             "usuariocreador",
             "fechahoradistribucion",
             "fechaprevista",
             "identificadorsupervisor",
-            "identificadorempleado",
+            "equipo",
             "fechacancelacion",
             "nombrecliente",
             "direccion",
@@ -115,9 +115,9 @@ $app->post('/ordendetrabajo', function () use ($app) {
 
         $valores = array(
             "'$tipoorden'",
-            $tipotareaid,
+            $tipotarea,
             "'$sistemaemisor'",
-            $tipoproductoid,
+            $tipoproducto,
             $fechahoracreacion,
             "'$usuariocreador'",
             $fechahoradistribucion,

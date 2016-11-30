@@ -1,11 +1,6 @@
 <?php 
-include ("../seguridad/seguridad.php");
-include ("../persistencia/conexion.php");
-include ("../persistencia/funcionesBD.php");
-//conecto con la base de datos
-$conexion = conectarBD($bdhost, $bduser, $bdpass);						 
-//selecciono la BBDD
-establecerBD($conexion, $bdbase);
+include_once ("../seguridad/seguridad.php");
+include_once ("../persistencia/ordendetrabajo.php");
 
 $tabla = "ordentrabajo";
 
@@ -13,37 +8,112 @@ $campos = "Numero, TipoOrden, TipoTarea, SistemaEmisor, TipoProducto, FechaHoraC
           "FechaPrevista, Equipo, NombreCliente, ApellidoCliente, Cedula, Telefono, Direccion, Localidad, ". 
           "Departamento, Estado, CodigoZona, Prioridad, Horario, Comentario, FuncionesRequeridas";
 
-$TipoOrden = "'" . $_SESSION["orden"]["TipoOrden"] . "', ";
-$TipoTarea = "'" . $_SESSION["orden"]["TipoTarea"] . "', ";
-$SistemaEmisor = "'" . $_SESSION["orden"]["SistemaEmisor"] . "', ";
-$TipoProducto = "'" . $_SESSION["orden"]["TipoProducto"] . "', ";
-$FechaHoraCreacion =  "'". date("Y-m-d H:i:s") . "', "; 
-$usuario = "'" . $_SESSION["usuario"] . "', ";
-$FechaPrevista = "'" . date('Y-m-d', strtotime(substr($_SESSION["orden"]["FechaPrevista"],10, 4) . "-" . substr($_SESSION["orden"]["FechaPrevista"],5, 2) . "-" . substr($_SESSION["orden"]["FechaPrevista"],0, 2))) . "', ";
-$Equipo = "'" . $_SESSION["orden"]["Equipo"] . "', "; 
-$NombreCliente = "'" . $_SESSION["orden"]["NombreCliente"] . "', ";
-$ApellidoCliente = "'" . $_SESSION["orden"]["ApellidoCliente"] . "', ";
-$Cedula = "'" . $_SESSION["orden"]["Cedula"] . "', ";
-$Telefono = "'" . $_SESSION["orden"]["Telefono"] . "', ";
-$Direccion = "'" . $_SESSION["orden"]["Direccion"]. "', ";
-$Localidad = "'" . $_SESSION["orden"]["Localidad"] . "', ";
-$Departamento = "'" . $_SESSION["orden"]["Departamento"] . "', ";
-$Estado = "'programada', ";
-$CodigoZona = "'" . $_SESSION["orden"]["CodigoZona"] . "', ";
-$Prioridad = "'0', ";
-$Horario = "'" . $_SESSION["orden"]["Horario"] . "', ";
-$Comentario = "'" . $_SESSION["orden"]["Comentario"] . "', ";
+$TipoOrden = "'" . $_SESSION["orden"]["TipoOrden"] . "'";
+$TipoTarea = "'" . $_SESSION["orden"]["TipoTarea"] . "'";
+$SistemaEmisor = "'" . $_SESSION["orden"]["SistemaEmisor"] . "'";
+$TipoProducto = "'" . $_SESSION["orden"]["TipoProducto"] . "'";
+$FechaHoraCreacion =  "'". date("Y-m-d H:i:s") . "'"; 
+$usuario = "'" . $_SESSION["usuario"] . "'";
+$FechaPrevista = "'" . date('Y-m-d', strtotime(substr($_SESSION["orden"]["FechaPrevista"],10, 4) . "-" . substr($_SESSION["orden"]["FechaPrevista"],5, 2) . "-" . substr($_SESSION["orden"]["FechaPrevista"],0, 2))) . "'";
+$Equipo = "'" . $_SESSION["orden"]["Equipo"] . "'"; 
+$NombreCliente = "'" . $_SESSION["orden"]["NombreCliente"] . "'";
+$ApellidoCliente = "'" . $_SESSION["orden"]["ApellidoCliente"] . "'";
+$Cedula = "'" . $_SESSION["orden"]["Cedula"] . "'";
+$Telefono = "'" . $_SESSION["orden"]["Telefono"] . "'";
+$Direccion = "'" . $_SESSION["orden"]["Direccion"]. "'";
+$Localidad = "'" . $_SESSION["orden"]["Localidad"] . "'";
+$Departamento = "'" . $_SESSION["orden"]["Departamento"] . "'";
+$Estado = "'programada'";
+$CodigoZona = "'" . $_SESSION["orden"]["CodigoZona"] . "'";
+$Prioridad = "'0'";
+$Horario = "'" . $_SESSION["orden"]["Horario"] . "'";
+$Comentario = "'" . $_SESSION["orden"]["Comentario"] . "'";
 $FuncionesRequeridas = "'" . $_SESSION["orden"]["FuncionesRequeridas"] . "'";
 
-echo "campos: " . $campos . "<br>";
+echo "se procedera a grabar la orden de trabajo con la sigueinte informacion:<br>";
+echo "-----------------------------------------------------------------------<br><br>";
 
-$valores = "NULL, " . $TipoOrden . $TipoTarea  . $SistemaEmisor . $TipoProducto . $FechaHoraCreacion . $usuario . $FechaPrevista . $Equipo . $NombreCliente . $ApellidoCliente . 
-           $Cedula . $Telefono . $Direccion . $Localidad . $Departamento . $Estado . $CodigoZona . $Prioridad . $Horario . $Comentario . $FuncionesRequeridas;
+echo "Estado :                          " . $Estado . "<br>";
+echo "Fecha de Generación :             " . $FechaHoraCreacion . "<br>";
+echo "Usuario Generación :              " . $usuario . "<br>";
+echo "Tipo de Orden :                   " . $TipoOrden . "<br>";
+echo "Sistema Generador :               " . $SistemaEmisor . "<br>";
+echo "Tipo de Tarea :                   " . $TipoTarea . "<br>";
+echo "Producto :                        " . $TipoProducto . "<br>";
+echo "Habilidades Requeridas :          " . $FuncionesRequeridas . "<br>";
+echo "Nombre del Cliente :              " . $NombreCliente . "<br>";
+echo "Apellido del Cliente :            " . $ApellidoCliente . "<br>";
+echo "Cédula de Identidad del Cliente : " . $Cedula . "<br>";
+echo "Télefono/Celular del Cliente :    " . $Telefono . "<br>";
+echo "Departamento :                    " . $Departamento . "<br>";
+echo "Localidad :                       " . $Localidad . "<br>";
+echo "Direccion :                       " . $Direccion . "<br>";
+echo "Codigo de Zona :                  " . $CodigoZona . "<br>";
+echo "Prioridad :                       " . $Prioridad . "<br>";
+echo "Fecha Prevista :                  " . $FechaPrevista . "<br>";
+echo "Horario Preferido :               " . $Horario . "<br>";
+echo "Comentario :                      " . $Comentario . "<br>";
+echo "Equipo :                          " . $Equipo . "<br>";
+echo "-----------------------------------------------------------------------<br><br>";
 
-echo "valores: " . $valores . "<br>";
+        $campos = array(
+            "tipoorden",
+            "tipotarea",
+            "sistemaemisor",
+            "tipoproducto",
+            "fechahoracreacion",
+            "usuariocreador",
+            "fechaprevista",
+            "equipo",
+            "nombrecliente",
+			"apellidocliente",
+			"cedula",
+			"telefono",
+            "direccion",
+            "localidad",
+            "departamento",
+            "estado",
+            "codigozona",
+            "prioridad",
+			"horario",
+			"comentario",
+            "funcionesrequeridas");
 
-$nroorden = insertarEnBD($conexion, $tabla, $campos, $valores);
 
-echo "orden insertada : " . $nroorden . "<br>";
+        $valores = array(
+						$TipoOrden,
+						$TipoTarea,
+						$SistemaEmisor,
+						$TipoProducto,
+						$FechaHoraCreacion,
+						$usuario,
+						$FechaPrevista,
+						$Equipo,
+						$NombreCliente,
+						$ApellidoCliente,
+						$Cedula,
+						$Telefono,
+						$Direccion,
+						$Localidad,
+						$Departamento,
+						$Estado,
+						$CodigoZona,
+						$Prioridad,
+						$Horario,
+						$Comentario,
+						$FuncionesRequeridas
+						);
+						
+        $mensaje = "";
+
+        insertar_orden_de_trabajo($campos, $valores, $mensaje);
+
+		unset($_SESSION["orden"]);
+		
+		echo "orden insertada : " . $mensaje . "<br>";
+		
+		$_SESSION["mensajePasado"] = "DesplegarOrden";
+		
+		header("Location: ../vistaorden/controladorDesplegarOrden.php?nroOT='" . $mensaje . "'&siguienteScript='../menucomercial.php'");
 
 ?>

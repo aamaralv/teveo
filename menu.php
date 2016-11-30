@@ -3,29 +3,37 @@
 $_SESSION["paginaAnterior"] = substr($_SERVER['SCRIPT_NAME'],strrpos($_SERVER['SCRIPT_NAME'],'/')+1);
 $_SESSION["mensajePasado"] = "";
 
-/*echo "<pre>";
+/*
+echo "<pre>";
 print_r($_SESSION);
-echo "</pre>";*/
+echo "</pre>";
+*/
 
-/*echo "<pre>";
-print_r($_SESSION);
-echo "</pre>";*/
 ?> 
 <html> 
   <head> 
-    <title>Men�</title>
+    <title>Menú</title>
   </head> 
   <body> 
   <h1 style="text-align:center;"><br>TEVEO</h1>
   <h1><br></h1>
     <table align="center" width="200" cellspacing="2" cellpadding="2" border="0">
       <tr> 
-        <td align="left"><h1>Menu Inicial</h1></td> 
+        <td align="left"><h1>Menú Inicial</h1></td> 
       </tr>
 	  <tr> 
         <td><hr /></td> 
       </tr> 
 	  <?php
+	  if ($_SESSION["rol"] === '2')
+	  {
+		echo "<tr>"; 
+        echo '<td align="left"><a href="menucomercial.php">Menú gestión comercial</a></td>'; 
+		echo "</tr>";
+		echo "<tr>"; 
+        echo '<td align="left"><a href="menuempleados.php">Menú gestión de empleados</a></td>'; 
+		echo "</tr>";
+	  }
 	  if ($_SESSION["rol"] === '1')
 	  {
 		echo "<tr>"; 
