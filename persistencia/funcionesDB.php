@@ -34,9 +34,9 @@ function select($conexion, $tabla, $campos, $criterios, &$tabla_resultado, &$men
         for ($i = 0; $i < $cantreg; $i++) {
             $tabla_resultado[$i] = mysqli_fetch_array($resultado);
         }
-        if ($cantreg == 1) {
-            $tabla_resultado = $tabla_resultado[0];
-        }
+        // if ($cantreg == 1) {
+        //     $tabla_resultado = $tabla_resultado[0];
+        // }
         
     }
     return $error;
