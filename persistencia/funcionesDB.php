@@ -7,7 +7,7 @@ define("TABLA_ORDEN_DE_TRABAJO", "orden_de_trabajo");
 define("TABLA_TIPOS_DE_PRODUCTO", "tipso_de_producto");
 define("TABLA_TIPOS_DE_TAREA", "tipos_de_tarea");
 define("TABLA_AUDITORIA_CUOTA", "auditoria_cuota");
-define("TABLA_CUOTA_EXCEPCIONAL", "cuota_excepcional");
+define("TABLA_CUOTA_EXCEPCIONAL", "cuotaexcepcional");
 define("TABLA_FERIADO", "feriados");
 
 function select($conexion, $tabla, $campos, $criterios, &$tabla_resultado, &$mensaje_error) {
@@ -16,7 +16,7 @@ function select($conexion, $tabla, $campos, $criterios, &$tabla_resultado, &$men
     $selectcampos = implode(",", $campos);
 
     $consulta = "SELECT " . $selectcampos . " FROM " . $tabla;
-
+   
     if (!empty($criterios)) {
         $selectwhere = implode(" and ", $criterios);
         $consulta.=" WHERE " . $selectwhere;
