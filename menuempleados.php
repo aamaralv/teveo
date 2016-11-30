@@ -24,10 +24,10 @@ $_SESSION["mensajePasado"] = "";
                 <td style="width: 2%" nowrap="nowrap">
                     <br>
                     <hr>
-                    <a href="presentacion/listarusuarios.php">Lista de usuarios</a> 
+                    <a href="presentacion/usuario/listarusuarios.php">Lista de usuarios</a> 
                     <br>  
                     <br>
-                    <a href="presentacion/altausuario.php">Alta de empleado</a>
+                    <a href="presentacion/usuario/altausuario.php">Alta de empleado</a>
                     <br>  
                     <br>
                     <a href="">Modificacion de usuario</a>

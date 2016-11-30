@@ -8,16 +8,18 @@
     //
     --> 
     <?php
-    include_once("../logica/usuario.php");
-    $empleados;
-    if (obtener_usuarios($empleados, $mensaje)) {
+    include_once("../../logica/cuota/cuota.php");
+    
+    if (obtener_cuotas($cuotas, $mensaje)) {
         echo $mensaje . "<br>";
+        
     }
+    
     ?>
 
 
     <head> 
-        <title>Lista de Empleados</title> 
+        <title>Lista de Cuotas</title> 
         <style type="text/css">
             .auto-style1 {
                 text-align: center;
@@ -26,7 +28,7 @@
     </head> 
     <body> 
         <div align="center">
-            <h1>Lista de Empleados</h1> 
+            <h1>Lista de Cuotas</h1> 
             <br>
             <br>
             <?php
@@ -36,30 +38,42 @@
             echo '<col style="width: 200px" />';
             echo '<col style="width: 200px" />';
             echo "<tr>";
-            echo '<th scope="col">CI</th>';
-            echo '<th scope="col">Usuario</th>';
-            echo '<th scope="col">Nombre</th>';
+            echo '<th scope="col">Equipo</th>';
+            echo '<th scope="col">Fecha Cambio</th>';
+            echo '<th scope="col">Usuario Cambio</th>';
+            echo '<th scope="col">Fecha Cuota</th>';
+            echo '<th scope="col">Cuota</th>';
             echo "</tr>";
-            //Listo todos los empleados de la base en la tabla
+            //Listo todos las cuotas
             $color_fila = '"#BBFFFF"';
-            $cantElem = sizeof($empleados);
+        
+            $cantElem = sizeof($cuotas);
+
             for ($i = 0; $i < $cantElem; $i++) {
+                
                 echo "<tr bgcolor=" . $color_fila . ">";
-                echo "<td>" . $empleados[$i]["ci"] . "</td><td>" . $empleados[$i]["usuario"] . "</td><td>" . $empleados[$i]["nombre"] . "</td>";
-                echo "</tr>";
+                
+                echo "<td>" . $cuotas[$i]["equipo"] . "</td>" .
+                "<td>" . $cuotas[$i]["fecha_cambio"] . "</td>" .
+                "<td>" . $cuotas[$i]["usuario_cambio"] . "</td>" .
+                "<td>" . $cuotas[$i]["fecha_aplicacion"] . "</td>" .
+                "<td>" . $cuotas[$i]["cuota"] . "</td>" .
+                "<td>" ."<a href='bajaCuota.php?id=".$cuotas[$i]["id"]."'</a>"."Borrar"."</td>"."</tr>";
+
                 if ($color_fila == '"#BBFFFF"') {
                     $color_fila = '"#FFFFFF"';
                 } else {
                     $color_fila = '"#BBFFFF"';
                 }
             }
+
             echo "</table>";
             ?>
             <br>  
             <br>
-            <a href="../menuempleados.php">Volver</a>
+            <a href="../../menuempleados.php">Volver</a>
             <br>
-            <a href="../salir.php">Salir</a>
+            <a href="../../salir.php">Salir</a>
         </div>
 
     </body> 
