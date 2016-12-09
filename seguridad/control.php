@@ -13,10 +13,11 @@ $empleado;
 $campos=array("ci","identificadorsupervisor","nombre", "apellido", "telefono","identificadorequipo","rolid","password","login");
 
 $criterios=array("login='$usuario'","password='$password'");
-if (login_usuario($campos,$criterios, $empleado, $mensaje)) {
+if (login_usuario($campos,$criterios, $empleado, $mensaje)) 
+{
     echo $mensaje . "<br>";
 } else {
-    if (!is_null($empleado))
+    if (sizeof($empleado) > 0)
 {
     //usuario y contraseña válidos
     //se define una sesión y guardan los datos
