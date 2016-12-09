@@ -17,7 +17,7 @@ echo "</pre>";
   <body> 
   <h1 style="text-align:center;"><br>TEVEO</h1>
   <h1><br></h1>
-    <table align="center" width="200" cellspacing="2" cellpadding="2" border="0">
+    <table align="center" width="300" cellspacing="2" cellpadding="2" border="0">
       <tr> 
         <td align="left"><h1>Menú Inicial</h1></td> 
       </tr>
@@ -46,7 +46,7 @@ echo "</pre>";
 	  if ($_SESSION["rol"] === '4')
 	  {
 		echo "<tr>"; 
-        echo '<td align="left"><a href="menuequipo.php">Menú gestión Ordenes</a></td>'; 
+        echo '<td align="left"><a href="menuequipos.php">Menú gestión OT por Equipos</a></td>'; 
 		echo "</tr>";
 	  }	  
 	  ?>

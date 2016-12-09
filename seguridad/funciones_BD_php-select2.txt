@@ -1,1 +1,0 @@
-SELECT ci,identificadorsupervisor,nombre,apellido,telefono,identificadorequipo,rolid,password,login FROM empleado WHERE login='supervisor1' and password='supervisor1'
