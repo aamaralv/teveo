@@ -6,7 +6,7 @@ include_once("funcionesDB.php");
 
 function listar_ordenes_de_trabajo($campos,$criterios,&$resultados, &$mensaje) {
     $conexion = abrir_conexion();
-//																														$salida = 'salida.txt';
+//																														$salida = 'salida-ordenedetrabajo_php-listar_ordenes_tranba.txt';
 //																														file_put_contents($salida, "Texto a grabar");
     $error=select($conexion,TABLA_ORDEN_DE_TRABAJO,$campos,$criterios,$resultados,$mensaje);
 	
@@ -25,11 +25,11 @@ function obtener_orden_de_trabajo($campos,$criterios,&$resultado, &$mensaje) {
     return $error;
 }
 
-function insertar_orden_de_trabajo($campos,$valores,&$mensaje) {
+function insertar_orden_de_trabajo($campos,$valores,&$mensaje, &$ordengenerada) {
     $conexion = abrir_conexion();
-    
-    $error=insert($conexion,TABLA_ORDEN_DE_TRABAJO,$campos, $valores,$mensaje);
-	
+
+    $error=insert($conexion,TABLA_ORDEN_DE_TRABAJO,$campos, $valores,$mensaje,$ordengenerada);
+  	
     cerrar_conexion($conexion);
     
     return $error;
@@ -231,9 +231,9 @@ function obtenerNombreLocalidad($codigo){
 function obtenerNombreUsuario($usuario){
 // recibe string con el nikname del usuario
 // devuelve un string con el nombre y apellido del usuario concatenados y separados por un espacio
-	$tabla = "usuario";
+	$tabla = "empleado";
 	$campo = "nombre, apellido";
-	$criterios = "usuario = '". $usuario ."'";
+	$criterios = "login = '". $usuario ."'";
 	$conexion = abrir_conexion();
 	$resultado = consultarEnBD($conexion, $tabla, $campo, $criterios);
 	cerrar_conexion($conexion);
@@ -270,7 +270,7 @@ function esDiaDeCuotaExcepcionalParaEquipo($dia, $equipo){
 	$diastr = "'" . date("Y", $dia) . "-" . date("m", $dia) . "-" . date("d", $dia) ."'";
 	$tabla = "cuota_excepcional";
 	$campos = "cuota";
-	$criterios = "(fecha_aplicacion = " . $diastr . "AND identificadorequipo = '" . $equipo . "')"; 
+	$criterios = "(fecha_aplicacion = " . $diastr . " AND identificadorequipo = '" . $equipo . "')"; 
 	$conexion = abrir_conexion();
 	$cuota = consultarEnBD($conexion, $tabla, $campos, $criterios);
 	cerrar_conexion($conexion);
@@ -282,7 +282,7 @@ function cuotaExcepcionalParaEquipoEnDia($equipo, $dia){
 	$diastr = "'" . date("Y", $dia) . "-" . date("m", $dia) . "-" . date("d", $dia) ."'";
 	$tabla = "cuota_excepcional";
 	$campos = "cuota";
-	$criterios = "(fecha_aplicacion = " . $diastr . "AND identificadorequipo = '" . $equipo . "')"; 
+	$criterios = "(fecha_aplicacion = " . $diastr . " AND identificadorequipo = '" . $equipo . "')"; 
 	$conexion = abrir_conexion();
 	$cuota = consultarEnBD($conexion, $tabla, $campos, $criterios);
 	cerrar_conexion($conexion);
@@ -303,7 +303,7 @@ function cotasDelEquipo($equipo){
 
 function cuotaDelEquipoParaElDia($equipo, $diaelegido){
 	if(esDiaDeCuotaExcepcionalParaEquipo($diaelegido, $equipo))
-		return uotaExcepcionalParaEquipoEnDia($equipo, $diaelegido);
+		return cuotaExcepcionalParaEquipoEnDia($equipo, $diaelegido);
 	else{
 		$cuotas = cotasDelEquipo($equipo);
 		if (esFeriado($diaelegido))
@@ -339,6 +339,19 @@ function bloquearEquipo($equipo, $usuario){
 function desbloquearEquipo($equipo, $usuario){
 																														$salida = 'salidaDesbloquearEquipo.txt';
 																														file_put_contents($salida, "Equipo a desbloquear " . $equipo . " de usuario " . $usuario);	
+}
+
+function listaEquiposDelSupervisor($supervisor){
+	// se recibe un codigo de supervisor
+	// se devuelve una tabla con la lista de equipos que gestiona el supervisor y sus habilidades.
+	$tabla = "equipo";
+	$campos = "identificador, habilidades";
+	$criterios = "(identificadorsupervisor = '" . $supervisor . "')"; 
+	$conexion = abrir_conexion();
+	$lista = consultarEnBD($conexion, $tabla, $campos, $criterios);
+	cerrar_conexion($conexion);
+
+	return $lista;
 }
 
 ?>

@@ -1,0 +1,1 @@
+UPDATE orden_de_trabajo SET identificadorsupervisor = 'SCANPAN001',fechaprevista = '2017-01-05',fechahoradespacho = '2016-12-09 09:50:20',equipo = 'ECANPAN009',equipodespacho = 'ECANPAN009',comentariosupervisor = '',estado = 'programada' WHERE numero = '641'

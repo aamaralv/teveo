@@ -24,7 +24,7 @@ $_SESSION["mensajePasado"] = "";
                 <td style="width: 2%" nowrap="nowrap">
                     <br>
                     <hr>
-                    <a href="">Opcion 1</a> 
+                    <a href="operaciones/controladorOperaciones.php">Gestionar Ordenes  de Trabajo</a> 
                     <br>  
                     <br>
                     

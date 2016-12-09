@@ -1,1 +1,0 @@
-SELECT ci,usuario,password,nombre,apellido,telefono,rolid,identificadorsupervisor,identificadorequipo,habilitado FROM usuario WHERE usuario='vendedor' and password='vendedor'

@@ -23,15 +23,14 @@ $_SESSION["mensajePasado"] = "";
             <tr>
                 <td align="left">
                     <br>
-                    <a href="vistaorden/controladorListarOrdenes.php">Consultar Ordenes de trabajo</a> 
+                    <a href="consultarordenes/controladorListarOrdenes.php">Consultar Ordenes de trabajo</a> 
                     <br>  
-                    <br>
-                 
                 </td>
             </tr>
             <tr>
                 <td align="center" nowrap="nowrap">
-                    <hr>
+                    <br>
+					<hr>
                     <a href="menu.php">Volver</a>
                     <br><a href="salir.php">Salir</a>
                     <hr>

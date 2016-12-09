@@ -21,7 +21,7 @@ function select($conexion, $tabla, $campos, $criterios, &$tabla_resultado, &$men
         $selectwhere = implode(" and ", $criterios);
         $consulta.=" WHERE " . $selectwhere;
     }
-    
+																												
     $resultado = mysqli_query($conexion, $consulta);
 
     if (!$resultado) {
@@ -42,19 +42,36 @@ function select($conexion, $tabla, $campos, $criterios, &$tabla_resultado, &$men
     return $error;
 }
 
-function insert($conexion, $tabla, $campos, $valores,&$mensaje) {
+function consultarEnBD($conexion, $tabla, $campos, $criterios){
+	$consulta = "SELECT " . $campos .  " FROM " . $tabla . " WHERE " . $criterios;
+	$resultado = mysqli_query($conexion, $consulta);
+	if (!$resultado){
+		die ("Error en la consulta 2: $consulta");
+		$cantidad = 0;
+	}
+	else
+		$cantreg = mysqli_num_rows($resultado);
+	$tabla = array();
+	for ($i=0; $i < $cantreg; $i++)
+		$tabla[$i] = mysqli_fetch_array ($resultado);
+	return $tabla;
+}
+
+function insert($conexion, $tabla, $campos, $valores,&$mensaje, &$nroOrdenGenerada) {
     $error = false;
     $insertcampos = implode(",", $campos);
     $insertvalores = implode(",", $valores);
     $insert = "INSERT INTO " . $tabla . "(" . $insertcampos . ") VALUES (" . $insertvalores . ")";
-  print $insert;
+
     if (!mysqli_query($conexion, $insert)) {
         $mensaje = mysqli_error($conexion);
         $mensaje = 'Mensaje de error: [' . $mensaje . ']';
         $error = true;
+		$nroOrdenGenerada = "-1";
     } else {
         $mensaje = 'Se realizo el registro con exito';
-    }
+		$nroOrdenGenerada = mysqli_insert_id($conexion);
+	}
 
     return $error;
 }
@@ -65,6 +82,10 @@ function update($conexion, $tabla, $valores,$criterios,&$mensaje) {
     $updatewhere = implode(" and ", $criterios);
     $update = "UPDATE " . $tabla ." SET " . $updatevalores . " WHERE " . $updatewhere;
     echo $update;
+
+																														$salida = 'funciones_BD_php-update.txt';
+																														file_put_contents($salida, $update);		
+
     if (!mysqli_query($conexion, $update)) {
         $mensaje = mysqli_error($conexion);
         $mensaje = 'Mensaje de error: [' . $mensaje . ']';

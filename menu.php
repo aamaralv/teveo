@@ -25,21 +25,30 @@ echo "</pre>";
         <td><hr /></td> 
       </tr> 
 	  <?php
-	  if ($_SESSION["rol"] === '2')
-	  {
-		echo "<tr>"; 
-        echo '<td align="left"><a href="menucomercial.php">Menú gestión comercial</a></td>'; 
-		echo "</tr>";
-		echo "<tr>"; 
-        echo '<td align="left"><a href="menuempleados.php">Menú gestión de empleados</a></td>'; 
-		echo "</tr>";
-	  }
 	  if ($_SESSION["rol"] === '1')
 	  {
 		echo "<tr>"; 
-        echo '<td align="left"><a href="menuempleados.php">Menú gestión de empleados</a></td>'; 
+        echo '<td align="left"><a href="menuempleados.php">Menú gestión de Empleados</a></td>'; 
 		echo "</tr>";
 	  }
+	  if ($_SESSION["rol"] === '2')
+	  {
+		echo "<tr>"; 
+        echo '<td align="left"><a href="menucomercial.php">Menú gestión Comercial</a></td>'; 
+		echo "</tr>";
+	  }
+	  if ($_SESSION["rol"] === '3')
+	  {
+		echo "<tr>"; 
+        echo '<td align="left"><a href="menuoperaciones.php">Menú gestión de Operaciones</a></td>'; 
+		echo "</tr>";
+	  }
+	  if ($_SESSION["rol"] === '4')
+	  {
+		echo "<tr>"; 
+        echo '<td align="left"><a href="menuequipo.php">Menú gestión Ordenes</a></td>'; 
+		echo "</tr>";
+	  }	  
 	  ?>
 	  <tr> 
         <td><hr /><br><br></td> 

@@ -105,15 +105,17 @@ echo "-----------------------------------------------------------------------<br
 						);
 						
         $mensaje = "";
-
-        insertar_orden_de_trabajo($campos, $valores, $mensaje);
+		$ordenGenerada = "";
+		
+        insertar_orden_de_trabajo($campos, $valores, $mensaje, $ordenGenerada);
 
 		unset($_SESSION["orden"]);
 		
-		echo "orden insertada : " . $mensaje . "<br>";
+		echo "<br><br>orden insertada : " . $ordenGenerada . "<br>";
 		
 		$_SESSION["mensajePasado"] = "DesplegarOrden";
+		$_SESSION["scriptSiguiente"] = "../menucomercial.php";
 		
-		header("Location: ../vistaorden/controladorDesplegarOrden.php?nroOT='" . $mensaje . "'&siguienteScript='../menucomercial.php'");
+		header("Location: ../velistarordenes/controladorDesplegarOrden.php?nroOT='" . $ordenGenerada . "'&siguienteScript='../menucomercial.php'");
 
 ?>

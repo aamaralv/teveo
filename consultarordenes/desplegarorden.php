@@ -13,7 +13,22 @@ $_SESSION["mensajePasado"] = "salir";
 		<div style="width:680px" align="left">
 			<h1 align="center">TEVEO</h1>
 			<h2 align="center">Orden de Trabajo <?php echo $_SESSION["orden"]["Numero"];?></h2>
-			<h3 align="center">Estado: <strong style="color:#00FF00"><?php echo $_SESSION["orden"]["Estado"];?></strong></h3>
+			<h3 align="center">Estado: <strong style="color:#00FF00">
+			<?php 
+			
+				echo $_SESSION["orden"]["Estado"] . " ";
+				if ($_SESSION["orden"]["Estado"] == "cancelada")
+					echo "- " . $_SESSION["orden"]["FechaCancelacion"] . " -";
+				if ($_SESSION["orden"]["Estado"] == "despachada")
+					echo "- " . $_SESSION["orden"]["FechaHoraDistribucion"] . " -";	
+				if ($_SESSION["orden"]["Estado"] == "cerrada")
+					echo "- " . $_SESSION["orden"]["FechaHoraCierre"] . " -";
+				if (($_SESSION["orden"]["Estado"] == "programada") && (strlen($_SESSION["orden"]["IdentificadorSupervisor"]) < 10 ))
+					echo "- " . $_SESSION["orden"]["FechaHoraCreacion"] . " -";
+				if (($_SESSION["orden"]["Estado"] == "programada") && (strlen($_SESSION["orden"]["IdentificadorSupervisor"]) == 10 ))
+					echo "- " . $_SESSION["orden"]["FechaHoraDespacho"] . " -";
+			?>
+			</strong></h3>
 			<div align="right">
 				<table width="50%">
 					<tr>
@@ -190,7 +205,23 @@ $_SESSION["mensajePasado"] = "salir";
 					<table width="100%">
 						<tr>
 							<td width="50%">
-								Supervisor:<?php echo $_SESSION["orden"]["IdentificadorSupervisor"];?> &nbsp;&nbsp;-&nbsp;&nbsp; <?php echo $_SESSION["orden"]["FechaHoraDespacho"];?>
+								Supervisor:
+								<?php 
+									echo $_SESSION["orden"]["IdentificadorSupervisor"];?> &nbsp;&nbsp;&nbsp;&nbsp; <?php 
+									if (strlen($_SESSION["orden"]["IdentificadorSupervisor"]) < 10)
+										echo "- __ / __ / ____ -";
+									else
+									{
+										if ($_SESSION["orden"]["Estado"] == "cancelada")
+											echo "- " . $_SESSION["orden"]["FechaCancelacion"] . " -";
+										if (($_SESSION["orden"]["Estado"] == "despachada") || ($_SESSION["orden"]["Estado"] == "cerrada"))
+											echo "- " . substr($_SESSION["orden"]["FechaHoraDespacho"],0,10) . " -";
+										if (($_SESSION["orden"]["Estado"] == "programada") && (strlen($_SESSION["orden"]["IdentificadorSupervisor"]) == 10 ))
+											echo "- " . substr($_SESSION["orden"]["FechaHoraDespacho"],0,10) . " -";
+
+									}			
+									// echo $_SESSION["orden"]["FechaHoraDespacho"];
+								?>
 								<br>
 								<br>Comentarios Supervisor:<br>
 								<?php echo '<textarea name="comentarioSupervisor" rows="4" cols="42">' . $_SESSION["orden"]["ComentariosSupervisor"] . '</textarea>'; ?>
