@@ -6,8 +6,7 @@ include_once("funcionesDB.php");
 
 function listar_ordenes_de_trabajo($campos,$criterios,&$resultados, &$mensaje) {
     $conexion = abrir_conexion();
-//																														$salida = 'salida-ordenedetrabajo_php-listar_ordenes_tranba.txt';
-//																														file_put_contents($salida, "Texto a grabar");
+
     $error=select($conexion,TABLA_ORDEN_DE_TRABAJO,$campos,$criterios,$resultados,$mensaje);
 	
     cerrar_conexion($conexion);
@@ -97,7 +96,22 @@ function obtenerAplicaHabilidadesDelProducto($codigo){
 	$conexion = abrir_conexion();
 	$resultado = consultarEnBD($conexion, $tabla, $campo, $criterios);
 	cerrar_conexion($conexion);
+																									$salida = 'obtenerAplicaHabilidadesDelProducto0.txt';
+																									file_put_contents($salida,"Codigo " . $codigo . "Resultado " . $resultado[0][$campo]);
 	return $resultado[0][$campo];
+}
+
+function obtenerListaTareas(){
+// no recibe parametros
+// devuelve una matriz con cada fila conteniendo una codigo de tarea string(1) y la descripcion de la tarea string(100)
+	$tabla = "tipos_de_tarea";
+	$campos = "codigo, descripcion";
+	$criterios = "1";
+	//Ejecuto la sentencia
+	$conexion = abrir_conexion();
+	$tabla = consultarEnBD($conexion, $tabla, $campos, $criterios);
+	cerrar_conexion($conexion);
+	return $tabla;	
 }
  
 function obtenerDescripcionSistemaGenerador($codigo){ // usada en GenerarOrdenDeTrabajoComercial.php
@@ -156,20 +170,73 @@ function obtenerListadoHabilidadesDescripcionPeso(){ // usada en GenerarOrdenDeT
 	return $tablaHabilidades;
 }
 
+function obtenerPesoDeHabilidad($codigo){
+// recibe un codigo de habiidad y busca en la bd el peso de la habilidad
+// devuelve un entero
+	$tabla = "habilidad";
+	$campo = "peso";
+	$criterios = "codigo = '". $codigo . "'";
+	$conexion = abrir_conexion();
+	$resultado = consultarEnBD($conexion, $tabla, $campo, $criterios);
+	cerrar_conexion($conexion);
+	if (sizeof($resultado) > 0)
+		return $resultado[0]["peso"];
+	else
+		return "1";
+}
+
+function tareaConHabilidadIndependienteDeProducto($tarea){
+// recibe un codigo de tarea y busca en la bd si la tarea aplica habilidades del producto
+// si no aplica habilidades del producto devuelve la habilidad requerida por la tarea
+	$tabla = " tipos_de_tarea";
+	$campo = "	aplica_habilidades_del_producto, habilidadrequerida";
+	$criterios = "descripcion = '". $tarea . "'";
+	$conexion = abrir_conexion();
+	$resultado = consultarEnBD($conexion, $tabla, $campo, $criterios);
+	cerrar_conexion($conexion);
+
+	if (sizeof($resultado) > 0)
+		if($resultado[0]["aplica_habilidades_del_producto"])
+			return "0";
+		else
+			return $resultado[0]["habilidadrequerida"];
+	else
+		return "0";
+	
+}
+
+
 function obtenerHabilidadesTipoProducto($codigo, $accion){
 // recibe un codigo de producto en formato string(3) y un codigo de accion en formato string
 // si existe combinacion en la bd para la tupla codigo accion devuelve el valor obtenido,
 // de lo contrario devuelve "1"
+																									$salida = 'ordentrabajo-obtenerHabilidadesTipoProducto0.txt';
+																									file_put_contents($salida, "accion " . $accion . " codigo " . $codigo);
+																									
+																									
+																									
+if (obtenerAplicaHabilidadesDelProducto($accion))
+{
 	$tabla = "tipos_de_producto";
 	$campo = "habilidad";
 	$criterios = "codigo = '". $codigo ."' AND accion = '" . $accion . "'";
 	$conexion = abrir_conexion();
 	$resultado = consultarEnBD($conexion, $tabla, $campo, $criterios);
 	cerrar_conexion($conexion);
+																									$salida = 'ordentrabajo-obtenerHabilidadesTipoProducto1.txt';
+																									file_put_contents($salida, "Dentro del IF resultado" . $resultado[0][$campo]);
 	if (isset($resultado[0][0]))
 		return $resultado[0][$campo];
 	else
 		return $codigo . "1";
+}	
+else
+{
+																									$salida = 'ordentrabajoobtenerHabilidadesTipoProducto2.txt';
+																									file_put_contents($salida, "Dentro del ELSE ");
+	return obtenerPesoDeHabilidad(tareaConHabilidadIndependienteDeProducto($accion));
+
+}
 }
 
 function obtenerListaDepartamentos(){
@@ -331,14 +398,14 @@ function cantidadOTdelEquipoParaElDia($equipo, $diaelegido){
 }
 
 function bloquearEquipo($equipo, $usuario){
-																														$salida = 'salidaBloquearEquipo.txt';
-																														file_put_contents($salida, "Equipo a bloquear " . $equipo . " por usuario " . $usuario);	
+//																														$salida = 'salidaBloquearEquipo.txt';
+//																														file_put_contents($salida, "Equipo a bloquear " . $equipo . " por usuario " . $usuario);	
 	return "si";
 }
 
 function desbloquearEquipo($equipo, $usuario){
-																														$salida = 'salidaDesbloquearEquipo.txt';
-																														file_put_contents($salida, "Equipo a desbloquear " . $equipo . " de usuario " . $usuario);	
+//																														$salida = 'salidaDesbloquearEquipo.txt';
+//																														file_put_contents($salida, "Equipo a desbloquear " . $equipo . " de usuario " . $usuario);	
 }
 
 function listaEquiposDelSupervisor($supervisor){

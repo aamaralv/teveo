@@ -30,7 +30,19 @@ echo "</pre>";
 		echo "<tr>"; 
         echo '<td align="left"><a href="menuempleados.php">Menú gestión de Empleados</a></td>'; 
 		echo "</tr>";
-	  }
+		echo "<tr>"; 
+        echo '<td align="left"><a href="menucomercial.php">Menú gestión Comercial</a></td>'; 
+		echo "</tr>";
+		echo "<tr>"; 
+        echo '<td align="left"><a href="menuoperaciones.php">Menú gestión de Operaciones</a></td>'; 
+		echo "</tr>";
+		echo "<tr>"; 
+        echo '<td align="left"><a href="menuequipos.php">Menú gestión OT por Equipos</a></td>'; 
+		echo "</tr>";
+		echo "<tr>"; 
+        echo '<td align="left"><a href="menusoporte.php">Menú gestión Soporte</a></td>'; 
+		echo "</tr>";
+	}
 	  if ($_SESSION["rol"] === '2')
 	  {
 		echo "<tr>"; 
@@ -47,6 +59,12 @@ echo "</pre>";
 	  {
 		echo "<tr>"; 
         echo '<td align="left"><a href="menuequipos.php">Menú gestión OT por Equipos</a></td>'; 
+		echo "</tr>";
+	  }
+	  if ($_SESSION["rol"] === '5')
+	  {
+		echo "<tr>"; 
+        echo '<td align="left"><a href="menusoporte.php">Menú gestión Soporte</a></td>'; 
 		echo "</tr>";
 	  }	  
 	  ?>

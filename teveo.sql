@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-11-2016 a las 23:45:51
+-- Tiempo de generación: 09-12-2016 a las 10:08:56
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -44,7 +44,7 @@ CREATE TABLE `auditoria_cuota` (
 
 CREATE TABLE `cuota_excepcional` (
   `id` int(11) NOT NULL,
-  `indentificadordeequipo` varchar(10) NOT NULL,
+  `identificadorequipo` varchar(10) NOT NULL,
   `fecha_cambio` datetime NOT NULL,
   `usuario_cambio` datetime NOT NULL,
   `fecha_aplicacion` datetime NOT NULL,
@@ -86,6 +86,40 @@ INSERT INTO `departamento` (`id`, `nombre_depto`) VALUES
 ('SOR', 'Soriano'),
 ('TAC', 'Tacuarembó'),
 ('TRE', 'Treinta y Tres');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `empleado`
+--
+
+CREATE TABLE `empleado` (
+  `id` int(10) NOT NULL,
+  `ci` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `login` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `password` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `apellido` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `telefono` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `rolid` int(11) NOT NULL,
+  `identificadorsupervisor` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `identificadorequipo` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `habilitado` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `empleado`
+--
+
+INSERT INTO `empleado` (`id`, `ci`, `login`, `password`, `nombre`, `apellido`, `telefono`, `rolid`, `identificadorsupervisor`, `identificadorequipo`, `habilitado`) VALUES
+(1, '1.000.000-8', 'vendedor', 'vendedor', 'Pedro', 'Martinez', '123456', 2, '', '', 1),
+(2, '2.000.000-6', 'supervisor1', 'supervisor1', 'Carlos', 'Perez', '654321', 3, 'SCANPAN001', '', 1),
+(3, '3.000.000-4', 'supervisor2', 'supervisor2', 'Maria', 'Rodriguez', '456123', 3, 'SCANPAN002', '', 1),
+(4, '4.000.000-2', 'supervisor3', 'supervisor3', 'Laura', 'Sanchez', '321654', 3, 'SCANPAN003', '', 1),
+(5, '5.000.000-0', 'empleado1', 'empleado1', 'Carlos', 'Sosa', '741852', 4, '', 'ECANPAN001', 1),
+(6, '6.000.000-8', 'empleado2', 'empleado2', 'Antonio', 'Noya', '852147', 4, '', 'ECANPAN009', 1),
+(7, '7.000.000-6', 'empleado3', 'empleado3', 'Amalia', 'Suarez', '963258', 4, '', 'ECANPAN010', 1),
+(8, '8.000.000-4', 'empleado4', 'empleado4', 'Fabiana', 'Sosa', '987456', 4, '', 'ECANPAN029', 1);
 
 -- --------------------------------------------------------
 
@@ -280,7 +314,7 @@ CREATE TABLE `orden_de_trabajo` (
   `fechacancelacion` date DEFAULT NULL,
   `nombrecliente` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `apellidocliente` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
-  `cedula` varchar(10) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cedula` varchar(12) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `telefono` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `direccion` varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `localidad` varchar(6) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
@@ -506,24 +540,39 @@ INSERT INTO `orden_de_trabajo` (`numero`, `tipoorden`, `tipotarea`, `sistemaemis
 (598, 'I', 'I', 'C', 'SVN', '2016-11-15 23:59:59', 'vendedor', NULL, '2016-12-23', '', 'ECANLAP010', NULL, 'Jose', 'Perez', '1.000.000-', '108 20 30', 'Calle 1', 'CANPAN', 'CAN', '2016-11-15 23:59:59', '', '', NULL, '', 'despachada', '', 3, 0, '2', 0, ''),
 (599, 'I', 'I', 'C', 'SVN', '2016-11-15 23:59:59', 'vendedor', NULL, '2016-12-23', '', 'ECANLAP010', NULL, 'Jose', 'Perez', '1.000.000-', '108 20 30', 'Calle 1', 'CANPAN', 'CAN', '2016-11-15 23:59:59', '', '', NULL, '', 'despachada', '', 3, 0, '2', 0, ''),
 (600, 'I', 'I', 'C', 'SVN', '2016-11-15 23:59:59', 'vendedor', NULL, '2016-12-23', '', 'ECANLAP010', NULL, 'Jose', 'Perez', '1.000.000-', '108 20 30', 'Calle 1', 'CANPAN', 'CAN', '2016-11-15 23:59:59', '', '', NULL, '', 'despachada', '', 3, 0, '2', 0, ''),
-(613, 'I', 'I', 'C', 'SVN', '2016-11-28 00:04:21', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 1, 'Comentario', 26, ''),
-(614, 'I', 'I', 'C', 'SVN', '2016-11-28 00:05:48', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 1, 'Comentario', 26, ''),
-(615, 'I', 'I', 'C', 'SVN', '2016-11-28 00:41:30', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, '', 26, NULL),
-(616, 'I', 'I', 'C', 'SVN', '2016-11-28 00:46:31', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, '', 26, NULL),
-(617, 'I', 'I', 'C', 'SVN', '2016-11-28 00:50:38', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, '', 26, NULL),
-(618, 'I', 'I', 'C', 'SVN', '2016-11-28 00:52:07', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, '', 26, NULL),
-(619, 'I', 'I', 'C', 'SVN', '2016-11-28 00:53:03', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, '', 26, NULL),
-(620, 'I', 'I', 'C', 'SVN', '2016-11-28 00:54:09', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, '', 26, NULL),
-(621, 'I', 'I', 'C', 'SVN', '2016-11-28 00:54:37', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, '', 26, NULL),
-(622, 'I', 'I', 'C', 'SVN', '2016-11-28 00:54:53', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, '', 26, NULL),
-(623, 'I', 'I', 'C', 'SVN', '2016-11-28 00:55:16', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, '', 26, NULL),
-(624, 'I', 'I', 'C', 'SVN', '2016-11-28 00:56:22', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, '', 26, NULL),
-(625, 'I', 'I', 'C', 'SVN', '2016-11-28 01:56:28', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN029', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'Calle 15', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 1, 'Solo de maÃ±ana.-', 26, NULL),
-(626, 'I', 'I', 'C', 'SVN', '2016-11-28 02:19:19', 'vendedor', NULL, '2016-11-30', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'Calle 100', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, 'Solo de tarde', 26, NULL),
+(613, 'I', 'I', 'C', 'SVN', '2016-11-28 00:04:21', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', '2016-12-09', 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle', 'CANPAN', 'CAN', NULL, '', NULL, NULL, NULL, 'cancelada', '', 0, 1, 'Comentario', 26, ''),
+(614, 'I', 'I', 'C', 'SVN', '2016-11-28 00:05:48', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', '2016-12-09', 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle', 'CANPAN', 'CAN', NULL, 'Comentario de prueba de cancelacion de orden de trabajo', NULL, NULL, NULL, 'cancelada', '', 0, 1, 'Comentario', 26, ''),
+(615, 'I', 'I', 'C', 'SVN', '2016-11-28 00:41:30', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', '2016-12-09', 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, 'Aparece un cartel rojo que dice que debo ingresar por lo menos 5 caracteres.', NULL, NULL, NULL, 'cancelada', '', 0, 2, '', 26, NULL),
+(616, 'I', 'I', 'C', 'SVN', '2016-11-28 00:46:31', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', '2016-12-09', 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, '12345', NULL, NULL, NULL, 'cancelada', '', 0, 2, '', 26, NULL),
+(617, 'I', 'I', 'C', 'SVN', '2016-11-28 00:50:38', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', '2016-12-09', 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, '123456', NULL, NULL, NULL, 'cancelada', '', 0, 2, '', 26, NULL),
+(618, 'I', 'I', 'C', 'SVN', '2016-11-28 00:52:07', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', '2016-12-09', 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, '123456', NULL, NULL, NULL, 'cancelada', '', 0, 2, '', 26, NULL),
+(619, 'I', 'I', 'C', 'SVN', '2016-11-28 00:53:03', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', '2016-12-09', 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', NULL, '123456', NULL, NULL, NULL, 'cancelada', '', 0, 2, '', 26, NULL),
+(620, 'I', 'I', 'C', 'SVN', '2016-11-28 00:54:09', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', '2016-12-09 05:00:06', NULL, 'ECANPAN009', NULL, NULL, 'despachada', '', 0, 2, '', 26, NULL),
+(621, 'I', 'I', 'C', 'SVN', '2016-11-28 00:54:37', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', '2016-12-09 05:06:15', NULL, 'ECANPAN009', NULL, NULL, 'despachada', '', 0, 2, '', 26, NULL),
+(622, 'I', 'I', 'C', 'SVN', '2016-11-28 00:54:53', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', '2016-12-09 05:06:16', NULL, 'ECANPAN009', NULL, NULL, 'despachada', '', 0, 2, '', 26, NULL),
+(623, 'I', 'I', 'C', 'SVN', '2016-11-28 00:55:16', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', '2016-12-09 05:06:17', NULL, 'ECANPAN009', NULL, NULL, 'despachada', '', 0, 2, '', 26, NULL),
+(624, 'I', 'I', 'C', 'SVN', '2016-11-28 00:56:22', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle1', 'CANPAN', 'CAN', '2016-12-09 05:06:18', NULL, 'ECANPAN009', NULL, NULL, 'despachada', '', 0, 2, '', 26, NULL),
+(625, 'I', 'I', 'C', 'SVN', '2016-11-28 01:56:28', 'vendedor', NULL, '2016-12-01', 'SCANPAN001', 'ECANPAN029', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'Calle 15', 'CANPAN', 'CAN', '2016-12-09 05:06:18', NULL, 'ECANPAN029', NULL, NULL, 'despachada', '', 0, 1, 'Solo de maÃ±ana.-', 26, NULL),
+(626, 'I', 'I', 'C', 'SVN', '2016-11-28 02:19:19', 'vendedor', '2016-12-09 10:08:19', '2016-12-09', 'SCANPAN001', 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'Calle 100', 'CANPAN', 'CAN', '2016-12-09 10:08:19', 'Solo de tarde', 'ECANPAN009', NULL, NULL, 'despachada', '', 0, 2, 'Solo de tarde', 26, NULL),
 (627, 'I', 'I', 'C', 'SVN', '2016-11-28 02:24:18', 'vendedor', NULL, '2016-11-30', NULL, 'ECANPAN009', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle 100.-', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 1, 'Solo de maÃ±ana.-', 26, NULL),
 (628, 'I', 'I', 'C', 'SVV', '2016-11-28 02:31:26', 'vendedor', NULL, '2016-11-30', NULL, 'ECANPAN001', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'calle', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 2, 'Hola', 2, NULL),
 (629, 'I', 'I', 'C', 'SVN', '2016-11-28 02:52:59', 'vendedor', NULL, '2016-12-01', NULL, 'ECANPAN029', NULL, 'Victorio', 'Cecot', 'Montevideo', '99679509', 'La calle', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 1, 'Este es un comentario para que vayan de maÃ±ana', 26, NULL),
-(630, 'I', 'I', 'C', 'SVV', '2016-11-30 23:26:20', 'vendedor', NULL, '2016-12-02', NULL, 'ECANLPI001', NULL, 'Victor', 'Paz', '56743567', '32131', 'Palo alto 1129 esquina steve jobs', 'CANLPI', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 3, 'ESTA AL PEDO TODO EL DIA', 2, NULL);
+(630, 'I', 'I', 'C', 'SVV', '2016-11-30 23:26:20', 'vendedor', NULL, '2016-12-02', NULL, 'ECANLPI001', NULL, 'Victor', 'Paz', '56743567', '32131', 'Palo alto 1129 esquina steve jobs', 'CANLPI', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 3, 'ESTA AL PEDO TODO EL DIA', 2, NULL),
+(631, 'I', 'I', 'C', 'CSM', '2016-12-08 21:59:18', 'vendedor', NULL, '2016-12-08', NULL, 'ECANPAN010', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'Calle sin nombre', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 3, '', 38, NULL),
+(632, 'I', 'I', 'C', 'SVN', '2016-12-08 22:14:41', 'vendedor', NULL, '2016-12-08', NULL, 'ECANPAN009', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'Calle sin nombre\r\n', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 1, '', 26, NULL),
+(633, 'I', 'I', 'C', 'SVN', '2016-12-08 22:16:05', 'vendedor', NULL, '2016-12-08', NULL, 'ECANPAN009', NULL, 'j', 'Pueblo', '2.000.000.6', '4', 'c', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 1, '', 26, NULL),
+(634, 'I', 'I', 'C', 'SVN', '2016-12-08 22:25:11', 'vendedor', NULL, '2016-12-08', NULL, 'ECANPAN009', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'calle x', 'CANPAN', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 1, '', 26, NULL),
+(635, 'I', 'I', 'C', 'SVN', '2016-12-08 22:26:21', 'vendedor', NULL, '2016-12-08', NULL, 'ECANLAP001', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'calle y', 'CANLAP', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 1, '', 26, NULL),
+(636, 'I', 'I', 'C', 'SVN', '2016-12-08 22:28:25', 'vendedor', NULL, '2016-12-08', NULL, 'ECANLAP001', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'calle l', 'CANLAP', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 3, '', 26, NULL),
+(637, 'I', 'I', 'C', 'SVN', '2016-12-08 22:31:12', 'vendedor', NULL, '2016-12-08', NULL, 'ECANLAP001', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'cd', 'CANLAP', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 3, '', 26, NULL),
+(638, 'I', 'I', 'C', 'SVN', '2016-12-08 22:33:18', 'vendedor', NULL, '2016-12-08', NULL, 'ECANLAP001', NULL, 'j', 'Pueblo', '2.000.000.6', '41002030', 'r', 'CANLAP', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 3, '', 26, NULL),
+(639, 'I', 'I', 'C', 'SVN', '2016-12-08 22:37:36', 'vendedor', NULL, '2016-12-08', NULL, 'ECANLAP001', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'calle 2', 'CANLAP', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 3, '', 26, NULL),
+(640, 'I', 'I', 'C', 'SVN', '2016-12-08 22:39:15', 'vendedor', NULL, '2016-12-08', NULL, 'ECANLAP001', NULL, 'j', 'Pueblo', '2.000.000.6', '41002030', 'f', 'CANLAP', 'CAN', NULL, NULL, NULL, NULL, NULL, 'programada', '', 0, 3, '', 26, NULL),
+(641, 'I', 'I', 'C', 'SVN', '2016-12-08 22:45:53', 'vendedor', '2016-12-09 10:07:44', '2017-01-05', 'SCANPAN001', 'ECANPAN009', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'f', 'CANPAN', 'CAN', '2016-12-09 10:07:44', '', 'ECANPAN009', NULL, NULL, 'despachada', '', 0, 3, '', 26, NULL),
+(642, 'I', 'I', 'C', 'SVN', '2016-12-08 22:49:35', 'vendedor', NULL, '2017-01-03', 'SCANPAN001', 'ECANPAN009', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'calle 100', 'CANPAN', 'CAN', '2016-12-09 09:48:54', '', 'ECANPAN009', NULL, NULL, 'programada', '', 0, 3, '', 26, NULL),
+(643, 'I', 'I', 'C', 'SVN', '2016-12-08 22:51:37', 'vendedor', NULL, '2016-12-08', 'SCANPAN001', 'ECANPAN029', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'e', 'CANPAN', 'CAN', '2016-12-09 05:48:20', NULL, NULL, '2016-12-09 05:48:20', 'Estos son mis cmentarios, supervisor 1.', 'cerrada', '', 0, 3, '', 26, NULL),
+(644, 'I', 'I', 'C', 'SVN', '2016-12-08 22:57:29', 'vendedor', NULL, '2016-12-08', 'SCANPAN001', 'ECANPAN029', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'OK', 'CANPAN', 'CAN', '2016-12-09 05:44:59', NULL, NULL, '2016-12-09 05:44:59', 'EL SUPERVISOR NO INGRESO COMENTARIOS DE CIERRE.', 'cerrada', '', 0, 1, 'si', 26, NULL),
+(645, 'I', 'I', 'C', 'SVN', '2016-12-08 23:06:05', 'vendedor', NULL, '2016-12-08', 'SCANPAN001', 'ECANPAN029', NULL, 'Juan', 'Pueblo', '2.000.000.6', '41002030', 'q', 'CANPAN', 'CAN', NULL, NULL, NULL, '2016-12-09 05:39:43', 'EL SUPERVISOR NO INGRESO COMENTARIOS DE CIERRE.', 'cerrada', '', 0, 3, '', 26, 'Estos son los comentarios de equipo');
 
 -- --------------------------------------------------------
 
@@ -667,6 +716,12 @@ ALTER TABLE `departamento`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `empleado`
+--
+ALTER TABLE `empleado`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `equipo`
 --
 ALTER TABLE `equipo`
@@ -736,6 +791,11 @@ ALTER TABLE `tipo_de_rol`
 ALTER TABLE `cuota_excepcional`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `empleado`
+--
+ALTER TABLE `empleado`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
 -- AUTO_INCREMENT de la tabla `feriados`
 --
 ALTER TABLE `feriados`
@@ -749,7 +809,7 @@ ALTER TABLE `habilidad`
 -- AUTO_INCREMENT de la tabla `orden_de_trabajo`
 --
 ALTER TABLE `orden_de_trabajo`
-  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=631;
+  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=646;
 --
 -- AUTO_INCREMENT de la tabla `sistema_emisor`
 --
